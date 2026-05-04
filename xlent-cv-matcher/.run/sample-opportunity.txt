@@ -1,2 +1,0 @@
-Må ha erfaring med Python og Azure
-Bør kunne jobbe med AI

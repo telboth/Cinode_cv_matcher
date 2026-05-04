@@ -38,8 +38,25 @@ class Settings(BaseModel):
 @lru_cache
 def get_settings() -> Settings:
     import os
-    env_path = Path(__file__).resolve().parents[4] / ".env"
+    repo_root = Path(__file__).resolve().parents[4]
+    env_path = repo_root / ".env"
     load_dotenv(env_path, override=False)
+
+    # Optional secrets file outside repo. Values here override .env.
+    secrets_file_env = os.getenv("CVMATCHER_SECRETS_FILE", "").strip()
+    secrets_candidates: list[Path] = []
+    if secrets_file_env:
+        secrets_candidates.append(Path(secrets_file_env).expanduser())
+    user_profile = os.getenv("USERPROFILE", "").strip()
+    if user_profile:
+        secrets_candidates.append(Path(user_profile) / ".xlent-cv-matcher" / "secrets.env")
+    for candidate in secrets_candidates:
+        try:
+            if candidate.exists() and candidate.is_file():
+                load_dotenv(candidate, override=True)
+        except Exception:
+            # Ignore invalid/missing optional secrets file and continue with .env/environment.
+            pass
 
     raw_allowed_models = os.getenv("OPENAI_ALLOWED_MODELS", "").strip()
     env_allowed_models = [item.strip() for item in raw_allowed_models.split(",") if item.strip()] if raw_allowed_models else []

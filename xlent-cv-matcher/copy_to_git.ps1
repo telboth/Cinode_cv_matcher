@@ -29,6 +29,28 @@ function Assert-RemoteReachable([string]$RemoteUrl) {
     }
 }
 
+function Assert-NoSensitiveFilesInIndex {
+    $stagedLines = (& git diff --cached --name-status) | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
+    if (-not $stagedLines) {
+        return
+    }
+
+    $blocked = @()
+    foreach ($line in $stagedLines) {
+        $parts = $line -split "`t"
+        if ($parts.Count -lt 2) { continue }
+        $status = $parts[0]
+        $f = $parts[-1]
+        if ($status -like "D*") { continue } # allow removals of sensitive files
+        if ($f -match '(^|/)\.env(\..*)?$') { $blocked += $f; continue }
+        if ($f -match '(^|/)(secrets(\..*)?\.env|.*\.key|.*\.pem)$') { $blocked += $f; continue }
+    }
+    if ($blocked.Count -gt 0) {
+        $joined = ($blocked | Select-Object -Unique) -join ", "
+        throw "Sikkerhetsstopp: sensitive filer er staged: $joined. Fjern dem fra git med 'git reset HEAD <fil>' og bruk ekstern secrets-fil."
+    }
+}
+
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 Push-Location $scriptDir
 try {
@@ -86,6 +108,8 @@ try {
         Write-Step "Ingen endringer å committe."
         exit 0
     }
+
+    Assert-NoSensitiveFilesInIndex
 
     Write-Step "Oppretter commit"
     [void](Invoke-Git -GitArgs @("commit", "-m", $CommitMessage))

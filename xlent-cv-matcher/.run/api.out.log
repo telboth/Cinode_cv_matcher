@@ -1,5 +1,0 @@
-INFO:     127.0.0.1:53623 - "GET /api/v1/cinode/credentials HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59457 - "GET /api/v1/cinode/credentials HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52101 - "GET /api/v1/config/openai-models HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53623 - "GET /api/v1/config/openai-models HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59457 - "POST /api/v1/cinode/credentials/d3a02429-2e58-4cac-a7b0-77a1b0473783/consultants HTTP/1.1" 200 OK
