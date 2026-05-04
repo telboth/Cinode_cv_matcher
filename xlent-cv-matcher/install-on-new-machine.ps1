@@ -11,9 +11,6 @@ $ApiDir = Join-Path $RootDir "apps\api"
 $WebDir = Join-Path $RootDir "apps\web"
 $EnvFile = Join-Path $RootDir ".env"
 $EnvExample = Join-Path $RootDir ".env.example"
-$SecretsExample = Join-Path $RootDir "secrets.env.example"
-$UserSecretsDir = Join-Path $env:USERPROFILE ".xlent-cv-matcher"
-$UserSecretsFile = Join-Path $UserSecretsDir "secrets.env"
 
 function Write-Step([string]$Message) {
     Write-Host "[install] $Message"
@@ -99,24 +96,6 @@ if (!(Test-Path $EnvFile)) {
 }
 else {
     Write-Step ".env already exists, keeping current values."
-}
-
-if (!(Test-Path $UserSecretsFile)) {
-    Write-Step "Creating external secrets file: $UserSecretsFile"
-    New-Item -ItemType Directory -Path $UserSecretsDir -Force | Out-Null
-    if (Test-Path $SecretsExample) {
-        Copy-Item $SecretsExample $UserSecretsFile -Force
-    }
-    else {
-        @(
-            "OPENAI_API_KEY=",
-            "CINODE_API_TOKEN="
-        ) | Set-Content -Encoding UTF8 $UserSecretsFile
-    }
-    Write-Warning "Fill in secrets in $UserSecretsFile (outside git)."
-}
-else {
-    Write-Step "External secrets file already exists: $UserSecretsFile"
 }
 
 $ApiVenvPython = Join-Path $ApiDir ".venv\Scripts\python.exe"

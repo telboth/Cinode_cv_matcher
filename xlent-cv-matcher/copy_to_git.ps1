@@ -29,6 +29,24 @@ function Assert-RemoteReachable([string]$RemoteUrl) {
     }
 }
 
+function Get-AheadBehind([string]$LocalRef, [string]$RemoteRef) {
+    # Returns @{ Ahead = int; Behind = int } or $null when refs cannot be compared.
+    $output = (& git rev-list --left-right --count "$LocalRef...$RemoteRef" 2>$null)
+    if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($output)) {
+        return $null
+    }
+
+    $parts = ($output -split "\s+") | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
+    if ($parts.Count -lt 2) {
+        return $null
+    }
+
+    return @{
+        Ahead  = [int]$parts[0]
+        Behind = [int]$parts[1]
+    }
+}
+
 function Assert-NoSensitiveFilesInIndex {
     $stagedLines = (& git diff --cached --name-status) | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
     if (-not $stagedLines) {
@@ -125,6 +143,17 @@ try {
     }
 
     Assert-RemoteReachable -RemoteUrl $TargetRemoteUrl
+
+    Write-Step "Henter siste endringer fra remote"
+    [void](Invoke-Git -GitArgs @("fetch", $TargetRemote, "--prune"))
+
+    $remoteBranchToTrack = if ([string]::IsNullOrWhiteSpace($TargetBranch)) { $currentBranch } else { $TargetBranch }
+    $remoteRef = "$TargetRemote/$remoteBranchToTrack"
+    $aheadBehind = Get-AheadBehind -LocalRef $currentBranch -RemoteRef $remoteRef
+    if ($aheadBehind -and $aheadBehind.Behind -gt 0) {
+        Write-Step "Remote er foran med $($aheadBehind.Behind) commit(s). Fletter inn $remoteRef før push."
+        [void](Invoke-Git -GitArgs @("merge", "--no-edit", $remoteRef))
+    }
 
     if ([string]::IsNullOrWhiteSpace($TargetBranch)) {
         Write-Step "Pusher til $TargetRemote/$currentBranch"

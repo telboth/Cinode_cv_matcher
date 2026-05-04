@@ -240,10 +240,6 @@ function normalizeErrorMessage(error: unknown): string {
   }
 
   const replacements: Array<[RegExp, string]> = [
-    [
-      /token exchange failed \(401\):\s*\{\"errorMessage\":\"AccessId or AccessSecret is missing\"\}/gi,
-      "Cinode-token er ugyldig: AccessId eller AccessSecret mangler. Legg inn gyldig CINODE_API_TOKEN i Innstillinger.",
-    ],
     [/cv has already been imported for this user/gi, "CV er allerede importert for denne brukeren"],
     [/already exists/gi, "finnes allerede"],
     [/not found/gi, "ble ikke funnet"],
@@ -261,15 +257,6 @@ function normalizeErrorMessage(error: unknown): string {
   }
   return out;
 }
-
-type SecretsHealthUi = {
-  path: string;
-  exists: boolean;
-  hasOpenAIKey: boolean;
-  hasCinodeToken: boolean;
-  ready: boolean;
-  warnings: string[];
-};
 
 export function App() {
   const MODEL_STORAGE_KEY = "xlent_selected_openai_model";
@@ -307,14 +294,6 @@ export function App() {
   );
   const [suggestionMode, setSuggestionMode] = useState<"llm" | "heuristic" | string>("heuristic");
   const [suggestionModeReason, setSuggestionModeReason] = useState<string>("Ikke lastet");
-  const [secretsHealth, setSecretsHealth] = useState<SecretsHealthUi>({
-    path: "",
-    exists: false,
-    hasOpenAIKey: false,
-    hasCinodeToken: false,
-    ready: false,
-    warnings: [],
-  });
   const [testModeHeuristicOnly, setTestModeHeuristicOnly] = useState<boolean>(false);
   const [openaiApiKeyOverride, setOpenaiApiKeyOverride] = useState<string>(
     () => localStorage.getItem(OPENAI_API_KEY_OVERRIDE_STORAGE_KEY) || ""
@@ -412,16 +391,6 @@ export function App() {
     const value = cinodeTokenOverride.trim();
     return value ? value : undefined;
   }, [cinodeTokenOverride]);
-  const hasOpenAiOverride = useMemo(() => {
-    const value = (openaiApiKeyOverrideValue || "").trim();
-    return value.startsWith("sk-") && value.length >= 20;
-  }, [openaiApiKeyOverrideValue]);
-  const hasCinodeOverride = useMemo(() => {
-    const value = (cinodeTokenOverrideValue || "").trim();
-    return value.length >= 16;
-  }, [cinodeTokenOverrideValue]);
-  const missingOpenAiInSettings = !secretsHealth.hasOpenAIKey && !hasOpenAiOverride;
-  const missingCinodeInSettings = !secretsHealth.hasCinodeToken && !hasCinodeOverride;
 
   const refreshSuggestions = async (currentVariantId: string) => {
     const sug = await api.listSuggestions(currentVariantId);
@@ -526,14 +495,6 @@ export function App() {
         setAllowedModels(models);
         setSuggestionMode(response.suggestion_mode || "heuristic");
         setSuggestionModeReason(response.suggestion_mode_reason || "");
-        setSecretsHealth({
-          path: response.secrets_file_path || "",
-          exists: !!response.secrets_file_exists,
-          hasOpenAIKey: !!response.secrets_file_has_openai_api_key,
-          hasCinodeToken: !!response.secrets_file_has_cinode_api_token,
-          ready: !!response.secrets_file_ready,
-          warnings: Array.isArray(response.secrets_file_warnings) ? response.secrets_file_warnings : [],
-        });
 
         const fromStorage = localStorage.getItem(MODEL_STORAGE_KEY);
         if (fromStorage && models.includes(fromStorage)) {
@@ -548,14 +509,6 @@ export function App() {
         // Keep fallback model in local state if config endpoint fails.
         setSuggestionMode("heuristic");
         setSuggestionModeReason("Kunne ikke laste config fra API");
-        setSecretsHealth({
-          path: "",
-          exists: false,
-          hasOpenAIKey: false,
-          hasCinodeToken: false,
-          ready: false,
-          warnings: ["Kunne ikke verifisere secrets.env fra API"],
-        });
       }
     };
 
@@ -585,24 +538,12 @@ export function App() {
       return;
     }
 
-    if (missingCinodeInSettings) {
-      setConsultants([]);
-      setQuickConsultantKey("");
-      setConsultantCv(null);
-      setConsultantEnrichment(null);
-      setEnrichmentSummary([]);
-      setPublicStatus(null);
-      setSelectedResumeId("");
-      setConsultantFetchStatus("Mangler gyldig CINODE_API_TOKEN. Legg inn nøkkel i Innstillinger.");
-      return;
-    }
-
     const timer = window.setTimeout(() => {
       void fetchConsultants();
     }, 500);
 
     return () => window.clearTimeout(timer);
-  }, [selectedCredentialId, cinodeTokenOverrideValue, missingCinodeInSettings]);
+  }, [selectedCredentialId, cinodeTokenOverrideValue]);
 
   useEffect(() => {
     const editors = document.querySelectorAll<HTMLTextAreaElement>(".suggestion-editor");
@@ -611,14 +552,6 @@ export function App() {
 
   const runFlow = async () => {
     try {
-      if (missingCinodeInSettings || (missingOpenAiInSettings && !testModeHeuristicOnly)) {
-        setSettingsExpanded(true);
-        setStatus(
-          "Feil: mangler gyldige API-nøkler (OPENAI_API_KEY og/eller CINODE_API_TOKEN). Legg dem inn i Innstillinger."
-        );
-        return;
-      }
-
       const selectedResumeIdForRun = selectedResumeId ? Number(selectedResumeId) : consultantCv?.selected_resume_id;
       if (!quickConsultantKey || !consultantCv || !selectedResumeIdForRun) {
         setStatus("Feil: velg en konsulent og en utgangspunkt-CV først");
@@ -929,38 +862,8 @@ export function App() {
         </div>
         <details className="settings-panel" open={settingsExpanded} onToggle={(e) => setSettingsExpanded((e.target as HTMLDetailsElement).open)}>
           <summary>Innstillinger</summary>
-          {!secretsHealth.ready && (
-            <div className="alert-warning" role="alert">
-              <strong>Mangler gyldige nøkler:</strong> Legg inn <code>OPENAI_API_KEY</code> og{" "}
-              <code>CINODE_API_TOKEN</code> i Innstillinger.
-              <br />
-              <span className="muted">
-                {secretsHealth.exists
-                  ? "secrets.env finnes, men mangler en eller flere gyldige verdier."
-                  : "secrets.env ble ikke funnet."}
-                {secretsHealth.path ? ` Forventet fil: ${secretsHealth.path}` : ""}
-              </span>
-              {secretsHealth.warnings.length > 0 && (
-                <ul>
-                  {secretsHealth.warnings.map((warning) => (
-                    <li key={warning}>{warning}</li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          )}
           <p>
             API-base: <code>http://127.0.0.1:8000/api/v1</code>
-          </p>
-          <p className="muted">
-            Aktiv secrets-fil:{" "}
-            <code>{secretsHealth.path || "(ukjent)"}</code>
-          </p>
-          <p className="muted">
-            Nøkkelkilde nå:{" "}
-            {hasCinodeOverride || hasOpenAiOverride
-              ? "Overstyring fra Innstillinger"
-              : "secrets.env/.env"}
           </p>
           <p>
             <strong>Forslagsmotor:</strong>{" "}
@@ -996,20 +899,9 @@ export function App() {
               }}
             />
           </label>
-          <div className="actions">
-            <button
-              className="ghost"
-              onClick={() => {
-                setOpenaiApiKeyOverride("");
-                localStorage.removeItem(OPENAI_API_KEY_OVERRIDE_STORAGE_KEY);
-              }}
-            >
-              Tøm OpenAI-overstyring
-            </button>
-          </div>
           <p className="muted">
-            Tomt felt bruker OPENAI_API_KEY fra <code>secrets.env</code>/<code>.env</code>. Utfylt felt overstyrer
-            nøkkelen for analyse og forslag. Nøkkelverdier vises ikke i UI.
+            Tomt felt bruker OPENAI_API_KEY fra <code>.env</code>. Utfylt felt overstyrer nøkkelen for analyse og
+            forslag.
           </p>
           <label>
             Prompt for LLM-forslag
@@ -1050,7 +942,7 @@ export function App() {
           <h3>Cinode-tilgang</h3>
           <p className="muted">
             Standard-tilgang hentes fra valgt credential (typisk <code>.env</code>). Hvis feltet under er utfylt,
-            overstyres tokenet i alle Cinode-kall fra appen. Nøkkelverdier vises ikke i UI.
+            overstyres tokenet i alle Cinode-kall fra appen.
           </p>
           <label>
             Cinode API-token (overstyring, valgfri)
@@ -1065,17 +957,6 @@ export function App() {
               }}
             />
           </label>
-          <div className="actions">
-            <button
-              className="ghost"
-              onClick={() => {
-                setCinodeTokenOverride("");
-                localStorage.removeItem(CINODE_TOKEN_OVERRIDE_STORAGE_KEY);
-              }}
-            >
-              Tøm Cinode-overstyring
-            </button>
-          </div>
           {cinodeCredentials.length > 1 && (
             <label>
               Aktiv Cinode-tilgang
@@ -1563,10 +1444,20 @@ export function App() {
           {automatingBrowserPublish && <span className="status-spinner" aria-label="Automasjon kjører" />}
         </div>
         {publishUiMessage && <p className="muted">{publishUiMessage}</p>}
+        {Boolean((browserPublishResponse as { ok?: boolean } | null)?.ok) && !automatingBrowserPublish && (
+          <p className="muted">
+            Programmet er kjørt, og ny CV eksisterer nå i Cinode.
+          </p>
+        )}
         {lastPublished && (
           <div className="muted">
             <p>
               <strong>Sist publisert variant:</strong> <code>{lastPublished.variantId}</code>
+            </p>
+            <p>
+              <strong>Publisert tekst (utdrag):</strong>{" "}
+              {(lastPublished.summaryText || "(tom tekst)").slice(0, 220)}
+              {lastPublished.summaryText.length > 220 ? "..." : ""}
             </p>
             {lastPublished.createdResumeUrl && (
               <p>
@@ -1595,10 +1486,10 @@ export function App() {
         )}
 
         {browserPublishResponse && (
-          <details>
-            <summary>Automasjonsrespons</summary>
+          <>
+            <h3>Automasjonsrespons</h3>
             <pre>{JSON.stringify(browserPublishResponse, null, 2)}</pre>
-          </details>
+          </>
         )}
 
       </section>

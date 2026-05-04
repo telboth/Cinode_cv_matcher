@@ -25,33 +25,9 @@ Miljøvariabler (valgfritt for AI):
 - `CINODE_API_TOKEN`
 - `CINODE_PUBLISH_PATH` (default `api/cv-import`)
 - `ENABLE_CINODE_PUBLISH=true`
-- `CVMATCHER_SECRETS_FILE` (valgfri sti til ekstern secrets-fil)
 
 Uten disse brukes heuristisk fallback for analyse/forslag.
 `publish/cinode` støtter også `dry_run=true` for lokal test uten kall.
-
-## Secrets (anbefalt oppsett)
-
-- Hold `.env` i repoet uten hemmeligheter (kun ikke-sensitive verdier).
-- Legg hemmeligheter i ekstern fil utenfor repo:
-  - `C:\Users\<bruker>\.xlent-cv-matcher\secrets.env`
-- API laster først `.env`, deretter ekstern secrets-fil (som overstyrer `.env`).
-- Du kan også peke til annen fil med `CVMATCHER_SECRETS_FILE=<full sti>`.
-
-Eksempel `secrets.env`:
-
-```env
-OPENAI_API_KEY=...
-CINODE_API_TOKEN=...
-```
-
-Hvis `.env`/runtime-filer allerede ligger i git-historikken:
-
-```powershell
-cd C:\Users\ThomasElboth\OneDrive - XLENT\Documents\CV_builder
-git rm -r --cached --ignore-unmatch -- xlent-cv-matcher/.env xlent-cv-matcher/.run xlent-cv-matcher/apps/web/node_modules xlent-cv-matcher/apps/api/.venv xlent-cv-matcher/apps/data/*.db
-git commit -m "Stop tracking local secrets and runtime artifacts"
-```
 
 ## 2) Kjør web lokalt
 
@@ -127,8 +103,6 @@ Valgfrie flagg:
 
 Standard remote i scriptet er:
 `origin -> https://github.com/telboth/Cinode_cv_matcher.git`
-
-Notat: `copy_to_git.ps1` stopper nå commit hvis `.env`/secrets-filer er staged.
 
 ## MVP-endepunkter
 

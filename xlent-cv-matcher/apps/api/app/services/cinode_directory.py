@@ -71,23 +71,13 @@ def _decode_base64_text(value: str) -> str | None:
     return decoded
 
 
-def _parse_basic_credentials_blob(value: str) -> tuple[str, str] | None:
+def _is_cinode_basic_credentials_blob(value: str) -> bool:
     decoded = _decode_base64_text(value.strip())
     if not decoded or ":" not in decoded:
-        return None
-    left, right = decoded.split(":", 1)
-    left = left.strip()
-    right = right.strip()
-    if not left or not right:
-        return None
-    return left, right
-
-
-def _is_cinode_basic_credentials_blob(value: str) -> bool:
-    parsed = _parse_basic_credentials_blob(value)
-    if not parsed:
         return False
-    left, _ = parsed
+    left, right = decoded.split(":", 1)
+    if not left or not right:
+        return False
     return left.endswith(".app.cinode.com")
 
 
@@ -246,14 +236,6 @@ def _parse_retry_after_seconds(response: httpx.Response, text: str) -> float:
 
 
 def _exchange_basic_for_bearer(base_url: str, basic_auth: str) -> str:
-    basic_value = basic_auth.split(" ", 1)[1].strip() if " " in basic_auth else basic_auth.strip()
-    parsed = _parse_basic_credentials_blob(basic_value)
-    if not parsed:
-        raise CinodeApiError(
-            "CINODE_API_TOKEN ser ut som Basic, men AccessId/AccessSecret mangler. "
-            "Bruk formatet Basic <base64(AccessId:AccessSecret)>."
-        )
-
     cache_key = f"{base_url.rstrip('/')}|{basic_auth}"
     now = time.time()
     cached = _TOKEN_CACHE.get(cache_key)
@@ -278,11 +260,6 @@ def _exchange_basic_for_bearer(base_url: str, basic_auth: str) -> str:
 
         if response.status_code >= 400:
             snippet = response.text[:300] if response.text else ""
-            if response.status_code in {400, 401} and "AccessId or AccessSecret is missing" in snippet:
-                raise CinodeApiError(
-                    "CINODE_API_TOKEN er ugyldig: AccessId eller AccessSecret mangler. "
-                    "Bruk formatet Basic <base64(AccessId:AccessSecret)>."
-                )
             raise CinodeApiError(f"Token exchange failed ({response.status_code}): {snippet}")
 
         token_payload: Any
