@@ -22,6 +22,13 @@ function Invoke-Git([string[]]$GitArgs, [switch]$AllowNonZeroExit) {
     return $exitCode
 }
 
+function Assert-RemoteReachable([string]$RemoteUrl) {
+    & git ls-remote $RemoteUrl *> $null
+    if ($LASTEXITCODE -ne 0) {
+        throw "Får ikke tilgang til remote repo: $RemoteUrl. Sjekk at repo finnes og at du er logget inn i Git (PAT/credential manager)."
+    }
+}
+
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 Push-Location $scriptDir
 try {
@@ -67,11 +74,11 @@ try {
 
     if ($IncludeRepoRootFiles) {
         Write-Step "Stager hele repoet"
-        Invoke-Git -GitArgs @("add", "-A")
+        [void](Invoke-Git -GitArgs @("add", "-A"))
     }
     else {
         Write-Step "Stager prosjektmappe: $relativeProjectPath"
-        Invoke-Git -GitArgs @("add", "-A", "--", $relativeProjectPath)
+        [void](Invoke-Git -GitArgs @("add", "-A", "--", $relativeProjectPath))
     }
 
     $diffExit = Invoke-Git -GitArgs @("diff", "--cached", "--quiet") -AllowNonZeroExit
@@ -81,7 +88,7 @@ try {
     }
 
     Write-Step "Oppretter commit"
-    Invoke-Git -GitArgs @("commit", "-m", $CommitMessage)
+    [void](Invoke-Git -GitArgs @("commit", "-m", $CommitMessage))
 
     if ($NoPush) {
         Write-Step "Commit laget. Push hoppet over (-NoPush)."
@@ -93,13 +100,15 @@ try {
         throw "Kunne ikke finne aktiv branch for push."
     }
 
+    Assert-RemoteReachable -RemoteUrl $TargetRemoteUrl
+
     if ([string]::IsNullOrWhiteSpace($TargetBranch)) {
         Write-Step "Pusher til $TargetRemote/$currentBranch"
-        Invoke-Git -GitArgs @("push", "--set-upstream", $TargetRemote, $currentBranch)
+        [void](Invoke-Git -GitArgs @("push", "--set-upstream", $TargetRemote, $currentBranch))
     }
     else {
         Write-Step "Pusher HEAD til $TargetRemote/$TargetBranch"
-        Invoke-Git -GitArgs @("push", "--set-upstream", $TargetRemote, "HEAD:$TargetBranch")
+        [void](Invoke-Git -GitArgs @("push", "--set-upstream", $TargetRemote, "HEAD:$TargetBranch"))
     }
     Write-Step "Ferdig."
 }
