@@ -7,7 +7,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import Response
 from sqlalchemy.orm import Session
 
-from app.core.config import get_settings
+from app.core.config import get_live_secret_value, get_settings
 from app.db.base import get_db
 from app.models.cinode_credential import CinodeCredential
 from app.models.cv_suggestion import CvSuggestion
@@ -231,6 +231,10 @@ def _resolve_auth_value(row: CinodeCredential, token_override: str | None) -> st
     override = (token_override or "").strip()
     if override:
         return normalize_auth_value(override)
+    if (row.label or "").strip() == "Cinode (.env)":
+        live = (get_live_secret_value("CINODE_API_TOKEN") or "").strip()
+        if live:
+            return normalize_auth_value(live)
     return row.auth_value
 
 

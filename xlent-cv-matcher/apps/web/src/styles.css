@@ -317,6 +317,15 @@ code {
   margin-bottom: 8px;
 }
 
+.alert-warning {
+  border: 1px solid #d9a441;
+  background: #fff7e6;
+  color: #4f3b14;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+
 .job-brief-section {
   margin: 12px 0;
   padding: 12px;

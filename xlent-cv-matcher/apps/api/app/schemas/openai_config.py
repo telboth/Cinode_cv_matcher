@@ -15,3 +15,9 @@ class OpenAIModelsResponse(BaseModel):
     suggestion_mode_reason: str
     use_openai_analysis: bool
     has_openai_api_key: bool
+    secrets_file_path: str
+    secrets_file_exists: bool
+    secrets_file_has_openai_api_key: bool
+    secrets_file_has_cinode_api_token: bool
+    secrets_file_ready: bool
+    secrets_file_warnings: list[str]

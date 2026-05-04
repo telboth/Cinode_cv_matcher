@@ -22,6 +22,12 @@ export type OpenAIModels = {
   suggestion_mode_reason: string;
   use_openai_analysis: boolean;
   has_openai_api_key: boolean;
+  secrets_file_path: string;
+  secrets_file_exists: boolean;
+  secrets_file_has_openai_api_key: boolean;
+  secrets_file_has_cinode_api_token: boolean;
+  secrets_file_ready: boolean;
+  secrets_file_warnings: string[];
 };
 export type CinodeCredential = {
   id: string;
