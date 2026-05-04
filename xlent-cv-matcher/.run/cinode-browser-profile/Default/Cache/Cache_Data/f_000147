@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Konsulent profilen - XLENT - B&#xE6;rekraftige Konsulenter</title>
+    <link rel="manifest"
+          href="https://cdn1.cinodestatic.net/assets/favicons/site.webmanifest" />
+    <link rel="icon" type="image/png" href="https://cdn1.cinodestatic.net/assets/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="https://cdn1.cinodestatic.net/assets/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="apple-touch-icon" href="https://cdn1.cinodestatic.net/assets/favicons/apple-touch-icon.png">
+
+    
+
+    
+    
+    
+        <link href="https://cdn1.cinodestatic.net/assets/shared/styles/71479f8c-931d-4fa3-99cd-0677288ca32f.css?v=638992503635097658" rel="stylesheet" type="text/css" />
+        <link href="https://cdn1.cinodestatic.net/assets/shared/styles/e624521a-bb4f-44c9-aed9-0af8d5dfae11.css?v=638189011599123124" rel="stylesheet" type="text/css" />
+        <link href="https://cdn1.cinodestatic.net/assets/shared/styles/7ee99949-cb25-4a70-9a22-622945fd7e18.css?v=638339268712821205" rel="stylesheet" type="text/css" />
+        <link href="https://cdn1.cinodestatic.net/assets/shared/styles/78db2cc5-9cf9-4c65-9deb-8afbb494d2cc.css?v=638188691000222176" rel="stylesheet" type="text/css" />
+        <link href="https://cdn1.cinodestatic.net/assets/shared/styles/86c7f990-8dfa-4822-a404-a1f412b7a437.css?v=638188755184627297" rel="stylesheet" type="text/css" />
+        <link href="https://cdn1.cinodestatic.net/assets/shared/styles/ad8af030-c23e-45bd-aeb0-a766bfe015e7.css?v=638188752136455763" rel="stylesheet" type="text/css" />
+        <link href="https://cdn1.cinodestatic.net/assets/shared/styles/5676d5a6-6191-4c9c-b815-767b22cc8430.css?v=638188690785511821" rel="stylesheet" type="text/css" />
+        <link href="https://cdn1.cinodestatic.net/assets/shared/styles/e18a7597-c7d8-40a9-bd83-294789c2080d.css?v=638409316486399790" rel="stylesheet" type="text/css" />
+
+    
+    
+    
+    <style>
+        @page {
+            size: A4 ;
+        }
+    </style>
+
+            <link href="https://cdn1.cinodestatic.net/assets/108/templates/15399/styles/00e9791b-f4e8-40b8-b11a-c2e019bbbcec.css?v=638804838499234783" rel="stylesheet" type="text/css" />
+
+    
+</head>
+    <!-- BEGIN CV -->
+    <body>
+    
+
+
+
+
+
+
+
+
+
+<div class="">
+    <header>
+            <img src="https://cdn1.cinodestatic.net/assets/251/images/f22907e6-e1f1-4d07-9b89-6b3f7df16dfb.svg" alt="XLENT" class="header-logo" />
+    </header>
+    <footer>
+        <div>Thomas Elboth</div>
+        <div class="paging js-paging"></div>
+    </footer>
+
+    <div id="printLayout"></div>
+    <div id="screenLayout">
+        <section id="frontpage">
+            <div class="hallbarakonsulter hallbarakonsulter__print">
+                <img src="https://cdn1.cinodestatic.net/assets/108/images/6de3adfc-731e-48ee-97f8-d270ffa7b879.svg" alt="XLENT" class="hallbarakonsulter-logo" />
+            </div>   
+            <div class="page-header">
+                        <div class="user-info">
+                            <h1>Thomas Elboth</h1>
+                                    <p class="title">Lead Data Scientist</p>
+                        </div>
+                        <div class="top_right">
+                        
+    <div class="logo">
+        <img src="https://cdn1.cinodestatic.net/_logotypes/108/7f/8c/7f8ce8a2-4c26-4183-bce2-ad5f052b5f99.png" alt="XLENT"/>
+    </div>
+
+                        
+                                <ul class="contact">
+                                        <li><a href="mailto:thomas.elboth@xlent.no" title="Skicka mail till: thomas.elboth@xlent.no">thomas.elboth@xlent.no</a></li>
+                                        <li><a href="tel:&#x2B;47 917 17 680" title="Ring: &#x2B;47 917 17 680">&#x2B;47 917 17 680</a></li>
+                                    
+                                </ul>
+                        </div>    
+            </div>
+
+            <div class="columns">
+                <div class="left-frontpage-column">
+                        <div class="profileimage">
+                        
+    <img class="image-profile" src="https://cdn1.cinodestatic.net/_images/108/26/0b/260be323-f546-4145-8ffc-88c308be2498.png" alt="Thomas Elboth" />
+
+                        </div>
+                        <div class="skills-by-category">
+                        </div>
+                        <div class="hallbarakonsulter hallbarakonsulter__screen">
+                            <img src="https://cdn1.cinodestatic.net/assets/108/images/6de3adfc-731e-48ee-97f8-d270ffa7b879.svg" alt="XLENT" class="hallbarakonsulter-logo" />
+                        </div>       
+                        
+                </div>    
+                <div class="right-frontpage-column">
+                    <div>
+
+    <p class="presentation-description">
+        Thomas Elboth har bred erfaring med &#xE5; hjelpe virksomheter &#xE5; realisere verdien av data og &#xF8;ke konkurranseevnen, med over 20 &#xE5;rs programmeringserfaring. Han har dyp kompetanse innen data science, maskinl&#xE6;ring og AI, og har jobbet i flere bransjer med komplekse utfordringer, hvor han kombinerer teknisk innsikt med forretnings- og organisasjonsforst&#xE5;else. Hans programmeringsferdigheter inkluderer Python, MatLab, Java, C, C&#x2B;&#x2B;, Fortran og Javascript. Han har erfaring med skytjenester som Microsoft Azure, AWS og Google Cloud Platform. Innen AI har han spesialisert seg p&#xE5; b&#xE5;de tradisjonelle og nyere teknikker, inkludert dyp l&#xE6;ring, generativ AI, RAG, agenter, og har praktisk erfaring med Claude-code og Codex. Thomas har ogs&#xE5; erfaring med patentskriving og FoU-finansiering b&#xE5;de nasjonalt og internasjonalt. Han har publisert mange vitenskapelige artikler og holder foredrag p&#xE5; konferanser. Valgt prosjekterfaring CTO, BlankIT, BlankIT Thomas Elboth utviklet en SaaS-l&#xF8;sning for &#xE5; identifisere og fjerne GDPR-sensitive data.
+    </p>
+                        
+                    </div>
+
+                     <div class="highlighted-workexperience">
+                    </div>   
+                                            
+                </div>
+
+            </div>    
+        </section>
+        <!--end #frontpage-->
+        
+                <h2 class="workexperience__heading">Prosjekterfaring</h2>
+                        <div class="work-experience">
+                            <h3>Lead data scientist</h3>
+                            <p class="work-experience__business">XLENT</p>
+                            <p class="work-experience__period">
+
+<span class="from-month">
+    feb
+</span>
+
+<span class="from-year">
+    2026
+</span>
+
+    <span class="to-ongoing">
+         - l&#xF8;pende
+    </span>
+</p>
+                                    <p class="work-experience__location">Oslo</p>
+                            <div class="work-experience__desc">
+                                        <div class="template-text-editor-content">
+                                            <p>Thomas Elboth arbeider som AI/ML-data scientist og konsulent hos XLENT i Oslo, hvor han bidrar i et bredt spekter av prosjekter.</p>
+                                        </div>
+                            </div>        
+                        </div>
+                        <div class="work-experience">
+                            <h3>Data scientist</h3>
+                            <p class="work-experience__business">Shearwater</p>
+                            <p class="work-experience__period">
+
+<span class="from-month">
+    feb
+</span>
+
+<span class="from-year">
+    2020
+</span>
+
+    <span class="separator">-</span>
+    <span class="to-month">
+        feb
+    </span>
+    <span class="to-year">
+        2026
+    </span>
+</p>
+                                    <p class="work-experience__location">Oslo</p>
+                            <div class="work-experience__desc">
+                                        <div class="template-text-editor-content">
+                                            <p>Thomas Elboth designet og programmerte et kart Dashboard som gjorde det mulig for selskapet å effektivt finne informasjon fra historiske seismiske innsamlinger. Dette var i praksis en full RAG som strukturerte og visualiserte historiske arkiver.</p><p>Backend: Python, FastAPI, LLM (lokal Llama), OCR. Frontend: Streamlit + Folium.</p>
+                                        </div>
+                                            <a href="https://www.shearwatergeo.com/" target="_blank" rel="noopener noreferrer" class="item-link">
+                                                https://www.shearwatergeo.com/
+                                            </a>
+                                        <ul class="work-experience__keywords">
+                                                    <li class="work-experience__keywords-skill">SQL</li>
+                                                    <li class="work-experience__keywords-skill">OpenCV</li>
+                                                    <li class="work-experience__keywords-skill">JSON</li>
+                                                    <li class="work-experience__keywords-skill">Azure</li>
+                                                    <li class="work-experience__keywords-skill">Geografiskt informationssystem (GIS)</li>
+                                                    <li class="work-experience__keywords-skill">Geofysikk</li>
+                                                    <li class="work-experience__keywords-skill">Keras</li>
+                                                    <li class="work-experience__keywords-skill">patents&#xF8;knader</li>
+                                                    <li class="work-experience__keywords-skill">Streamlit</li>
+                                                    <li class="work-experience__keywords-skill">Geophysics</li>
+                                                    <li class="work-experience__keywords-skill">OpenAI</li>
+                                                    <li class="work-experience__keywords-skill">Prompt Engineering</li>
+                                                    <li class="work-experience__keywords-skill">LLaMa</li>
+                                                    <li class="work-experience__keywords-skill">VectorDB</li>
+                                                    <li class="work-experience__keywords-skill">Seismic Data Processing</li>
+                                        </ul>
+                            </div>        
+                        </div>
+                        <div class="work-experience">
+                            <h3>CTO, BlankIT</h3>
+                            <p class="work-experience__business">BlankIT</p>
+                            <p class="work-experience__period">
+
+<span class="from-month">
+    jan
+</span>
+
+<span class="from-year">
+    2021
+</span>
+
+    <span class="separator">-</span>
+    <span class="to-month">
+        feb
+    </span>
+    <span class="to-year">
+        2024
+    </span>
+</p>
+                                    <p class="work-experience__location">Oslo</p>
+                            <div class="work-experience__desc">
+                                        <div class="template-text-editor-content">
+                                            <p>Thomas Elboth utviklet en SaaS løsning for å identifisere og fjerne GDPR sensitive data i dokumenter or dokument arkiv. Backend: Python, FastAPI, LLMs (HuggingFace), Regex, SQL. Frontend: Javasctipt / Streamlit. Hele systemet kjørte på Azure.</p>
+                                        </div>
+                                        <ul class="work-experience__keywords">
+                                                    <li class="work-experience__keywords-skill">Azure</li>
+                                                    <li class="work-experience__keywords-skill">GitHub</li>
+                                                    <li class="work-experience__keywords-skill">Docker</li>
+                                                    <li class="work-experience__keywords-skill">FastAPI</li>
+                                                    <li class="work-experience__keywords-skill">LLM</li>
+                                        </ul>
+                            </div>        
+                        </div>
+                        <div class="work-experience">
+                            <h3>Prosjekter som konsulent for Amesto NextBridge</h3>
+                            <p class="work-experience__business"></p>
+                            <p class="work-experience__period">
+
+<span class="from-month">
+    jan
+</span>
+
+<span class="from-year">
+    2019
+</span>
+
+    <span class="separator">-</span>
+    <span class="to-month">
+        feb
+    </span>
+    <span class="to-year">
+        2020
+    </span>
+</p>
+                            <div class="work-experience__desc">
+                                        <div class="template-text-editor-content">
+                                            <p>Hos Amesto NextBridge leverte konsulenten flere avanserte dataanalyse‑ og AI‑prosjekter for ulike kunder innen både privat og offentlig sektor. Arbeidet hadde hovedfokus på utvikling av maskinlæringsløsninger, bruk av moderne AI‑teknologier og innovative datadrevne produkter.</p><p><br></p><p>Et av de mest fremtredende prosjektene var utviklingen av en løsning som analyserte og dekodet bieadferd ved hjelp av YOLO‑basert tracking, PyTorch og visuelle datamodeller. Dette prosjektet vant SAS EMEA Hackathon 2020 og ble fremhevet som et eksempel på kreativ og effektiv bruk av AI i praktiske problemstillinger. Konsulenten hadde ansvar for modellutvikling, databehandling og innsiktsvisualisering i Power BI.</p><p><br></p><p>Konsulenten ledet også prosjekter innen prediksjon av fremtidige strømpriser og råvarepriser. Arbeidet involverte utvikling av tidsseriemodeller og treningspipelines basert på Keras, TensorFlow og PyTorch. Modellene ble benyttet av kundene for å styrke beslutningsgrunnlag og risikoanalyser i markeder med høy volatilitet.</p><p><br></p><p>I tillegg gjennomførte konsulenten tidlig eksperimentering med LLM‑teknologi for Røde Kors, som en av de første i Norge med API‑tilgang til ChatGPT 3.0 allerede i 2019. Målet var å effektivisere interne prosesser ved hjelp av språkmodeller, og prosjektet bidro til å demonstrere hvordan generativ AI kan støtte humanitære organisasjoner i operativt arbeid.</p><p><br></p><p>Gjennom disse prosjektene kombinerte konsulenten teknisk dybde med evnen til å lede og gjennomføre innovasjonsprosjekter som ga konkrete, målbare gevinster for kundene.</p><p><br></p><p>Rolle: Lead Data Scientist</p>
+                                        </div>
+                            </div>        
+                        </div>
+                        <div class="work-experience">
+                            <h3>Data Scientist / Geofysiker</h3>
+                            <p class="work-experience__business">CGG</p>
+                            <p class="work-experience__period">
+
+<span class="from-month">
+    jan
+</span>
+
+<span class="from-year">
+    2013
+</span>
+
+    <span class="separator">-</span>
+    <span class="to-month">
+        des
+    </span>
+    <span class="to-year">
+        2019
+    </span>
+</p>
+                                    <p class="work-experience__location">Oslo</p>
+                            <div class="work-experience__desc">
+                                        <div class="template-text-editor-content">
+                                            <p>Thomas Elboth designet og ledet prosjekt i CGG der formålet var å trene dype neurale nettverk (CNNs) til å prosessere seismiske data for O&amp;G industrien. Prosjektet gå svært gode resultater, og metodikken nyttes i dag i økende grad innen hele industrien.</p><p>Metodikk: Python, Keras + signal/bilde behandling.</p>
+                                        </div>
+                                            <a href="https://www.viridiengroup.com/" target="_blank" rel="noopener noreferrer" class="item-link">
+                                                https://www.viridiengroup.com/
+                                            </a>
+                                        <ul class="work-experience__keywords">
+                                                    <li class="work-experience__keywords-skill">JavaScript</li>
+                                                    <li class="work-experience__keywords-skill">Project Manager</li>
+                                                    <li class="work-experience__keywords-skill">MATLAB</li>
+                                                    <li class="work-experience__keywords-skill">algorithmes</li>
+                                                    <li class="work-experience__keywords-skill">Finansiering</li>
+                                                    <li class="work-experience__keywords-skill">Deep Learning</li>
+                                                    <li class="work-experience__keywords-skill">Python</li>
+                                                    <li class="work-experience__keywords-skill">Keras</li>
+                                                    <li class="work-experience__keywords-skill">PyTorch</li>
+                                                    <li class="work-experience__keywords-skill">FoU</li>
+                                                    <li class="work-experience__keywords-skill">Convolutional Neural Network (CNN)</li>
+                                                    <li class="work-experience__keywords-skill">Yolo</li>
+                                                    <li class="work-experience__keywords-skill">Fortran</li>
+                                        </ul>
+                            </div>        
+                        </div>
+                        <div class="work-experience">
+                            <h3>Fugro Geoteam/Fugro Seismic Imaging</h3>
+                            <p class="work-experience__business"></p>
+                            <p class="work-experience__period">
+
+<span class="from-month">
+    feb
+</span>
+
+<span class="from-year">
+    2005
+</span>
+
+    <span class="separator">-</span>
+    <span class="to-month">
+        des
+    </span>
+    <span class="to-year">
+        2013
+    </span>
+</p>
+                            <div class="work-experience__desc">
+                                        <div class="template-text-editor-content">
+                                            <p>Som senior geofysiker og prosjektleder hos Fugro, et internasjonalt geovitenskapsselskap som samler inn og bearbeider geofysiske data, leverte konsulenten flere forsknings‑ og utviklingsprosjekter innen avansert seismisk prosessering. Arbeidet inkluderte både ledelse av tekniske team og direkte utvikling av nye algoritmer og metoder for marin seismikk.</p><p><br></p><p>Konsulenten hadde ansvar for å lede og veilede forsknings‑ og utviklingsteam, og han drev frem nye prosesseringsmetoder som resulterte i et betydelig antall internasjonale publikasjoner. I tillegg utviklet han avanserte signalbehandlingsalgoritmer som styrket Fugros evne til å håndtere komplekse geofysiske datamengder og forbedret kvaliteten på de leverte datasettene.</p><p><br></p><p>Videre sikret konsulenten forskningsfinansiering for flere store FoU‑prosjekter med både nasjonale og internasjonale samarbeidspartnere, og han presenterte resultater på konferanser og i faglige artikler. Gjennom prosjektene hos Fugro kombinerte konsulenten teknisk dybde, forskningsledelse og bransjeinnsikt for å utvikle innovative løsninger og drive teknologien videre innen marin geofysikk.</p><p><br></p><p>Rolle: Senior geofysiker/Prosjekt leder</p>
+                                        </div>
+                            </div>        
+                        </div>
+
+        
+                        <h2 class="employer__heading">Arbeidsgivere</h2>
+                            <div class="row-two-columns odd employer">
+                                <div class="employer__info-wrapper">
+                                    <div class="employer_title"> 
+                                        <p class="employer__name">XLENT</p> 
+
+                                        <p class="employer__duration">
+
+<span class="from-month">
+    feb
+</span>
+
+<span class="from-year">
+    2026
+</span>
+
+    <span class="to-ongoing">
+         - l&#xF8;pende
+    </span>
+</p>
+                                    </div>
+                                        <div class="employer__title">Lead Data Scientist</div>
+                                    
+                                    
+                                </div>
+                                
+                            </div>
+                            <div class="row-two-columns even employer">
+                                <div class="employer__info-wrapper">
+                                    <div class="employer_title"> 
+                                        <p class="employer__name">Shearwater</p> 
+
+                                        <p class="employer__duration">
+
+<span class="from-month">
+    feb
+</span>
+
+<span class="from-year">
+    2020
+</span>
+
+    <span class="separator">-</span>
+    <span class="to-month">
+        feb
+    </span>
+    <span class="to-year">
+        2026
+    </span>
+</p>
+                                    </div>
+                                        <div class="employer__title">Lead Geophysicist</div>
+                                    
+                                        <div class="employer__description">
+                                            Shearwater er et seismikkselskap med ekspertise innen leting etter olje og gass.&#xA;&#xA;Thomas Elboth har utviklet flere AI- og ML-l&#xF8;sninger for Shearwater, b&#xE5;de innen geofysikk (oljeleting) og generelle forretningsapplikasjoner. Eksempler p&#xE5; disse inkluderer:&#xA;&#xA;&#x2022; En deep learning-l&#xF8;sning for interpolering av manglende frekvenser i signalene fra en marin vibrator. Dette l&#xF8;ste en helt ny utfordring og muliggjorde mer milj&#xF8;vennlig innsamling av seismiske data.&#xA;&#xA;&#x2022; En RAG-l&#xF8;sning for administrasjon og overv&#xE5;king av varer og forsendelser.&#xA;&#xA;&#x2022; En RAG-l&#xF8;sning for organisering og h&#xE5;ndtering av historiske seismiske data.&#xA;&#xA;&#x2022; Utvikling av patents&#xF8;knader, inkludert innvilgede patenter, samt etablering av selskapets strategi for intellectual property (IP).
+                                        </div>
+                                        <a href="https://www.shearwatergeo.com/" target="_blank" rel="noopener noreferrer" class="item-link">
+                                            https://www.shearwatergeo.com/
+                                        </a>
+                                    
+                                </div>
+                                
+                            </div>
+                            <div class="row-two-columns odd employer">
+                                <div class="employer__info-wrapper">
+                                    <div class="employer_title"> 
+                                        <p class="employer__name">Amesto NextBridge</p> 
+
+                                        <p class="employer__duration">
+
+<span class="from-month">
+    jan
+</span>
+
+<span class="from-year">
+    2019
+</span>
+
+    <span class="separator">-</span>
+    <span class="to-month">
+        feb
+    </span>
+    <span class="to-year">
+        2020
+    </span>
+</p>
+                                    </div>
+                                        <div class="employer__title">Lead Data Scientist</div>
+                                    
+                                        <div class="employer__description">
+                                            Amesto NextBridge var et dataanalyse- og AI-konsulentselskap.&#xA;&#xA;Thomas Elboth jobbet med utvikling av ML- og AI-l&#xF8;sninger for flere kunder i denne perioden:&#xA;&#xA;&#x2022; Vant SAS EMEA Hackathon 2020 med et prosjekt som dekodet bieadferd, ved bruk av verkt&#xF8;y som Power BI, YOLO-tracking og PyTorch.&#xA;&#xA;&#x2022; Ledet prosjekter innen prediksjon av fremtidige str&#xF8;mpriser og r&#xE5;varepriser, hovedsakelig ved bruk av Keras, TensorFlow og/eller PyTorch.&#xA;&#xA;&#x2022; Utf&#xF8;rte tidlig arbeid med LLM-er for &#xE5; effektivisere R&#xF8;de Kors, trolig som en av de f&#xF8;rste i Norge til &#xE5; f&#xE5; tilgang til en API-n&#xF8;kkel for ChatGPT 3.0 sent i 2019.
+                                        </div>
+                                        <a href="https://www.amestosolutions.no" target="_blank" rel="noopener noreferrer" class="item-link">
+                                            https://www.amestosolutions.no
+                                        </a>
+                                    
+                                </div>
+                                
+                            </div>
+                            <div class="row-two-columns even employer">
+                                <div class="employer__info-wrapper">
+                                    <div class="employer_title"> 
+                                        <p class="employer__name">CGG - (now Viridien)</p> 
+
+                                        <p class="employer__duration">
+
+<span class="from-month">
+    jan
+</span>
+
+<span class="from-year">
+    2013
+</span>
+
+    <span class="separator">-</span>
+    <span class="to-month">
+        jan
+    </span>
+    <span class="to-year">
+        2019
+    </span>
+</p>
+                                    </div>
+                                        <div class="employer__title">Senior research advisor / project leader</div>
+                                    
+                                        <div class="employer__description">
+                                            CGG (n&#xE5; Veridien) er et geovitenskapelig selskap som samler inn og prosesserer geofysiske data.&#xA;&#xA;Thomas Elboth har v&#xE6;rt:&#xA;&#xA;&#x2022; En n&#xF8;kkelperson i utviklingen av TopSeis-teknologien, som har vunnet flere priser. Han har skrevet en rekke artikler om temaet og v&#xE6;rt hovedforfatter p&#xE5; flere patenter. Videre har han sikret betydelig ekstern forskningsfinansiering.&#xA;&#xA;&#x2022; En leder for team og prosjekter innen h&#xE5;ndtering av seismisk interferens, med ansvar for &#xE5; koordinere interessenter p&#xE5; tvers av bransjen. Han utviklet ogs&#xE5; avanserte signalbehandlingsalgoritmer og publiserte flere artikler om temaet, inkludert tau-p-transformasjoner, st&#xF8;yreduksjon, adaptiv subtraksjon og maskinl&#xE6;ring. Dette arbeidet har spart olje- og gassindustrien for millioner av dollar &#xE5;rlig. For mer informasjon, se publikasjonslisten nedenfor med artikler relatert til seismisk interferens.&#xA;&#xA;&#x2022; En pioner innen bruk av maskinl&#xE6;ring for seismisk dataprosessering. Han initierte prosjektet, sikret forskningsmidler fra Forskningsr&#xE5;det og veiledet tre Ph.d.-studenter. Dette arbeidet har resultert i flere publikasjoner i journaler og konferanser.
+                                        </div>
+                                        <a href="https://www.viridiengroup.com/" target="_blank" rel="noopener noreferrer" class="item-link">
+                                            https://www.viridiengroup.com/
+                                        </a>
+                                    
+                                </div>
+                                
+                            </div>
+                            <div class="row-two-columns odd employer">
+                                <div class="employer__info-wrapper">
+                                    <div class="employer_title"> 
+                                        <p class="employer__name">Fugro Geoteam / Fugro Seismic Imaging</p> 
+
+                                        <p class="employer__duration">
+
+<span class="from-month">
+    feb
+</span>
+
+<span class="from-year">
+    2005
+</span>
+
+    <span class="separator">-</span>
+    <span class="to-month">
+        des
+    </span>
+    <span class="to-year">
+        2013
+    </span>
+</p>
+                                    </div>
+                                        <div class="employer__title">Senior geofysiker / prosjekt leder</div>
+                                    
+                                        <div class="employer__description">
+                                            Fugro er et geovitenskapsselskap som samler inn og bearbeider geofysiske data.&#xA;&#xA;I denne perioden arbeidet Thomas Elboth med f&#xF8;lgende oppgaver:&#xA;&#xA;&#x2022; Ledelse og veiledning av forsknings- og utviklingsteam.&#xA;&#xA;&#x2022; Utvikling av nye prosesseringsalgoritmer for marin seismikk, med et betydelig antall internasjonale publikasjoner.&#xA;&#xA;&#x2022; Sikring av forskningsfinansiering for flere store FoU-prosjekter med b&#xE5;de nasjonal og internasjonal deltakelse.&#xA;&#xA;&#x2022; Presentasjon av forskningsresultater p&#xE5; konferanser og i fagartikler.
+                                        </div>
+                                        <a href="https://www.fugro.com/" target="_blank" rel="noopener noreferrer" class="item-link">
+                                            https://www.fugro.com/
+                                        </a>
+                                    
+                                </div>
+                                
+                            </div>
+                            <div class="row-two-columns even employer">
+                                <div class="employer__info-wrapper">
+                                    <div class="employer_title"> 
+                                        <p class="employer__name">Forsvaret - Kavaleriet</p> 
+
+                                        <p class="employer__duration">
+
+<span class="from-month">
+    jun
+</span>
+
+<span class="from-year">
+    1991
+</span>
+
+    <span class="separator">-</span>
+    <span class="to-month">
+        okt
+    </span>
+    <span class="to-year">
+        2000
+    </span>
+</p>
+                                    </div>
+                                    
+                                        <div class="employer__description">
+                                            Thomas Elboth var I Forsvaret I totalt 9 &#xE5;r. Startet som menig Aspirant og avsluttet som Kaptein (Rittmester).&#xA;&#xA;&#x2022;&#x9;Ledelsesutdanning (Krigsskole)&#xA;&#xA;&#x2022;&#x9;Ledelseserfaring fra operativ avdeling med ansvar for 40&#x2013;50 soldater, inkludert utenlandstjeneste og samvirke i krevende milj&#xF8;er.&#xA;&#xA;&#x2022;&#x9;Sikkerhetsfokus og erfaring med risikovurderinger
+                                        </div>
+                                        <a href="https://www.forsvaret.no/" target="_blank" rel="noopener noreferrer" class="item-link">
+                                            https://www.forsvaret.no/
+                                        </a>
+                                    
+                                </div>
+                                
+                            </div>
+
+                        <h2 class="education__heading">Utdanning</h2>
+                    <div class="row-two-columns odd education">
+                        
+                        <div class="education__info-wrapper">
+                            <p class="education__program-name">PhD in Applied Mathematics; Master of Science in Applied Mathematics  (PhD)</p>
+
+                                <p class="education__school-name">UiO </p>
+                                <p class="education__description">
+Ph.d. in Applied Mathematics<br>UiO - Industriell doktorgrad skrevet I samarbeid mellom Fugro og Forsvarets Forskningsinstitutt (FFI)<br>Avhandling om støy i seismiske data.</p>
+                                <a href="https://scholar.google.com/citations?user=mcly2WkAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer" class="item-link">
+                                    https://scholar.google.com/citations?user=mcly2WkAAAAJ&amp;hl=en
+                                </a>
+                        </div>
+                        <div class="education__duration">
+                            <p>
+                                
+
+<span class="wrk-time">
+    <span class="from-year">
+        2006
+    </span>
+            <span class="separator">-</span>
+            <span class="to-year">
+                2010
+            </span>
+</span>
+
+                            </p>
+                        </div>
+
+
+                    </div>
+                    <div class="row-two-columns even education">
+                        
+                        <div class="education__info-wrapper">
+                            <p class="education__program-name">Master  (Master)</p>
+
+                                <p class="education__school-name">UiO </p>
+                                <p class="education__description">
+Master of Science in Applied Mathematics<br>UiO – Mastergrad skrevet i samarbeid med Forsvarets Forskningsinstitutt (FFI)<br>Avhandling om anisotropisk diffusjon og visualisering</p>
+                                <a href="https://scholar.google.com/citations?user=mcly2WkAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer" class="item-link">
+                                    https://scholar.google.com/citations?user=mcly2WkAAAAJ&amp;hl=en
+                                </a>
+                        </div>
+                        <div class="education__duration">
+                            <p>
+                                
+
+<span class="wrk-time">
+    <span class="from-year">
+        2000
+    </span>
+            <span class="separator">-</span>
+            <span class="to-year">
+                2005
+            </span>
+</span>
+
+                            </p>
+                        </div>
+
+
+                    </div>
+                    <div class="row-two-columns odd education">
+                        
+                        <div class="education__info-wrapper">
+                            <p class="education__program-name">Operativ lederutdanning  (Bachelor)</p>
+
+                                <p class="education__school-name">Krigsskolen </p>
+                                <p class="education__description">
+Forsvarets lederutdanning</p>
+                                <a href="https://www.forsvaret.no/utdanning/" target="_blank" rel="noopener noreferrer" class="item-link">
+                                    https://www.forsvaret.no/utdanning/
+                                </a>
+                        </div>
+                        <div class="education__duration">
+                            <p>
+                                
+
+<span class="wrk-time">
+    <span class="from-year">
+        1993
+    </span>
+            <span class="separator">-</span>
+            <span class="to-year">
+                1996
+            </span>
+</span>
+
+                            </p>
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+        <h2 class="skill-by-level__heading">Ferdigheter</h2>
+            <div class="skill-by-level skill-by-level--5">
+                <div>
+                    <div class="skill-by-level__stroke">
+                        <div class="skill-by-level__stroke__inner-circle">5</div>
+                    </div>
+                    <h4>Ekspert på området</h4>
+                </div>
+                <div class="skill-by-level__skills">
+                        <div class="skill-by-level__skill">Data Science</div>
+                        <div class="skill-by-level__skill">Deep Learning</div>
+                        <div class="skill-by-level__skill">FoU</div>
+                        <div class="skill-by-level__skill">GDPR</div>
+                        <div class="skill-by-level__skill">Geofysikk</div>
+                        <div class="skill-by-level__skill">Geophysics</div>
+                        <div class="skill-by-level__skill">Maskinl&#xE6;ring</div>
+                        <div class="skill-by-level__skill">Matematikk</div>
+                        <div class="skill-by-level__skill">Mathematics</div>
+                        <div class="skill-by-level__skill">MATLAB</div>
+                        <div class="skill-by-level__skill">Olje og gass</div>
+                        <div class="skill-by-level__skill">patenter</div>
+                        <div class="skill-by-level__skill">Programmering</div>
+                        <div class="skill-by-level__skill">publikasjoner</div>
+                        <div class="skill-by-level__skill">Python utvikling</div>
+                        <div class="skill-by-level__skill">Seismic Data Processing</div>
+                        <div class="skill-by-level__skill">Signalbehandling</div>
+                        <div class="skill-by-level__skill">Streamlit</div>
+                        <div class="skill-by-level__skill">veiledning</div>
+                </div>
+            </div>
+            <div class="skill-by-level skill-by-level--4">
+                <div>
+                    <div class="skill-by-level__stroke">
+                        <div class="skill-by-level__stroke__inner-circle">4</div>
+                    </div>
+                    <h4>Svært høy kompetanse</h4>
+                </div>
+                <div class="skill-by-level__skills">
+                        <div class="skill-by-level__skill">AI</div>
+                        <div class="skill-by-level__skill">algorithmes</div>
+                        <div class="skill-by-level__skill">Azure</div>
+                        <div class="skill-by-level__skill">Backend</div>
+                        <div class="skill-by-level__skill">C</div>
+                        <div class="skill-by-level__skill">C/C&#x2B;&#x2B;</div>
+                        <div class="skill-by-level__skill">C&#x2B;&#x2B;</div>
+                        <div class="skill-by-level__skill">Claude</div>
+                        <div class="skill-by-level__skill">Codex</div>
+                        <div class="skill-by-level__skill">Convolutional Neural Network (CNN)</div>
+                        <div class="skill-by-level__skill">Databaser</div>
+                        <div class="skill-by-level__skill">Datainnsamling</div>
+                        <div class="skill-by-level__skill">Dataanalyse</div>
+                        <div class="skill-by-level__skill">Docker</div>
+                        <div class="skill-by-level__skill">FastAPI</div>
+                        <div class="skill-by-level__skill">Finansiering</div>
+                        <div class="skill-by-level__skill">Foredrag</div>
+                        <div class="skill-by-level__skill">Fortran</div>
+                        <div class="skill-by-level__skill">Generativ AI</div>
+                        <div class="skill-by-level__skill">Geografiskt informationssystem (GIS)</div>
+                        <div class="skill-by-level__skill">GitHub</div>
+                        <div class="skill-by-level__skill">HuggingFace</div>
+                        <div class="skill-by-level__skill">Imaging</div>
+                        <div class="skill-by-level__skill">JavaScript</div>
+                        <div class="skill-by-level__skill">JSON</div>
+                        <div class="skill-by-level__skill">Keras</div>
+                        <div class="skill-by-level__skill">Kunstig intelligens</div>
+                        <div class="skill-by-level__skill">LLaMa</div>
+                        <div class="skill-by-level__skill">LLM</div>
+                        <div class="skill-by-level__skill">OpenAI</div>
+                        <div class="skill-by-level__skill">OpenCV</div>
+                        <div class="skill-by-level__skill">Pandas</div>
+                        <div class="skill-by-level__skill">patents&#xF8;knader</div>
+                        <div class="skill-by-level__skill">Presentasjoner</div>
+                        <div class="skill-by-level__skill">Project Manager</div>
+                        <div class="skill-by-level__skill">Prompt Engineering</div>
+                        <div class="skill-by-level__skill">prosjekt ledelse</div>
+                        <div class="skill-by-level__skill">Python</div>
+                        <div class="skill-by-level__skill">PyTorch</div>
+                        <div class="skill-by-level__skill">Skytjenester</div>
+                        <div class="skill-by-level__skill">SQL</div>
+                        <div class="skill-by-level__skill">VectorDB</div>
+                        <div class="skill-by-level__skill">Visualisering</div>
+                        <div class="skill-by-level__skill">Yolo</div>
+                </div>
+            </div>
+            <div class="skill-by-level skill-by-level--3">
+                <div>
+                    <div class="skill-by-level__stroke">
+                        <div class="skill-by-level__stroke__inner-circle">3</div>
+                    </div>
+                    <h4>Høy kompetanse</h4>
+                </div>
+                <div class="skill-by-level__skills">
+                        <div class="skill-by-level__skill">AWS</div>
+                        <div class="skill-by-level__skill">Databricks</div>
+                        <div class="skill-by-level__skill">Frontend</div>
+                        <div class="skill-by-level__skill">Google Cloud</div>
+                        <div class="skill-by-level__skill">Google Cloud Platform</div>
+                        <div class="skill-by-level__skill">Java</div>
+                </div>
+            </div>
+
+        
+            <h2 class="language__heading">Spr&#xE5;k</h2>
+                <div class="row-two-columns odd language">
+                    <div class="language__language-name">Engelsk</div>
+                    <div class="language__level">Innf&#xF8;dt eller tospr&#xE5;klig ferdighet</div>
+                </div>
+                <div class="row-two-columns even language">
+                    <div class="language__language-name">Norsk</div>
+                    <div class="language__level">Innf&#xF8;dt eller tospr&#xE5;klig ferdighet</div>
+                </div>
+                <div class="row-two-columns odd language">
+                    <div class="language__language-name">Tysk</div>
+                    <div class="language__level">Element&#xE6;r ferdighet</div>
+                </div>
+
+            <h2 class="commitment__heading">Forpliktelser og publikasjoner</h2>
+                <div class="row-two-columns odd commitment">
+                    <div class="commitment__title">Min publikasjonsliste</div>
+                    <div class="commitment__duration">
+                        
+
+<span class="wrk-time">
+    <span class="from-year">
+        2005
+    </span>
+        <span class="to-ongoing">
+             - l&#xF8;pende
+        </span>
+</span>
+
+                    </div>
+                </div>
+                    <div class="row-two-columns odd commitment extras">
+                            <p class="commitment__description">Thomas Elboth har en omfattende vitenskapelig publikasjonsliste som inkluderer journalartikler, konferanseartikler og flere patenter. Den fullstendige listen er tilgjengelig via lenken nedenfor.</p>
+                            <div class="commitment__url"><a href="https://scholar.google.com/citations?user=mcly2WkAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">https://scholar.google.com/citations?user=mcly2WkAAAAJ&amp;hl=en</a></div>
+                    </div>
+     </div>
+    
+    <div id="control-panel">
+                <button>
+                    <a onclick="pageFlow.togglePrintLayout(); return false" href="#">
+                        Toggle pdf/print preview
+                    </a>
+                </button>
+            <button id="exportPdf">
+                <a class="fileDownloadManager" data-export-type="pdf" data-message="Opprette PDF-fil. Vennligst vent..." href="/resumes/461263/thomas-elboth-senior-konsulent-integrasjon/pdf">Eksport til PDF</a>
+            </button>
+                <button>
+                    <a class="ss-icon fileDownloadManager" data-export-type="word" data-message="Opprette Word-fil. Vennligst vent..." href="/resumes/461263/thomas-elboth-senior-konsulent-integrasjon/export">Eksport til Word</a>
+                </button>
+    </div>
+
+</div>
+    </body>
+    <!-- END CV -->
+<!-- BEGIN FILE DOWNLOAD HELPERS -->
+
+<style>
+    .download-progress {
+        align-items: center;
+        background: rgba(0, 0, 0, 0.3);
+        bottom: 0;
+        display: none;
+        justify-content: center;
+        left: 0;
+        opacity: 0;
+        padding: 20px;
+        position: fixed;
+        right: 0;
+        top: 0;
+        transition: opacity 0.2s ease;
+        z-index: 1;
+    }
+
+    .download-progress--show {
+        display: flex;
+    }
+
+    .download-progress--show-pdf .download-progress__icon--pdf {
+        display: flex;
+    }
+
+    .download-progress--show-word .download-progress__icon--word {
+        display: flex;
+    }
+
+    .download-progress--show-powerpoint .download-progress__icon--powerpoint {
+        display: flex;
+    }
+
+    .download-progress--show-status-loading .download-progress__status--loading {
+        display: flex;
+    }
+
+    .download-progress--show-status-done .download-progress__status--done {
+        display: flex;
+    }
+
+    .download-progress--show-status-error .download-progress__status--error {
+        display: flex;
+    }
+
+    .download-progress--show-status-error .download-progress__error {
+        display: flex;
+    }
+
+    .download-progress--show-status-error .download-progress__heading {
+        display: none;
+    }
+
+    .download-progress--animate-in {
+        opacity: 1;
+    }
+
+    .download-progress--animate-in .download-progress__modal {
+        transform: translateY(0);
+    }
+
+    .download-progress__modal {
+        align-items: center;
+        background: white;
+        border-radius: 6px;
+        display: flex;
+        max-width: 560px;
+        padding: 20px;
+        transform: translateY(50px);
+        transition: transform 0.4s ease;
+        width: 100%;
+    }
+
+    .download-progress__icon {
+        align-items: center;
+        background: #efefef;
+        border-radius: 6px;
+        display: flex;
+        justify-content: center;
+        margin-right: 20px;
+        padding: 10px;
+    }
+
+    .download-progress__icon--pdf,
+    .download-progress__icon--word,
+    .download-progress__icon--powerpoint {
+        display: none;
+    }
+
+    .download-progress__heading {
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .download-progress__error {
+        display: none;
+        flex-direction: column;
+    }
+
+    .download-progress__error p:first-of-type {
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 22px;
+    }
+
+    .download-progress__status {
+        margin-left: auto;
+    }
+
+    .download-progress__status--loading,
+    .download-progress__status--done,
+    .download-progress__status--error {
+        display: none;
+    }
+
+    .download-progress__status--done,
+    .download-progress__status--error {
+        align-items: center;
+        border-radius: 100%;
+        height: 40px;
+        justify-content: center;
+        width: 40px;
+    }
+
+    .download-progress__status--done {
+        background: #0f9279;
+    }
+
+    .download-progress__status--error {
+        background: #ff4242;
+        color: white;
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .download-progress__spinner--bg {
+        fill: #c7c7c7;
+    }
+
+    .download-progress__spinner--rotate {
+        animation: rotate 0.75s infinite linear;
+        fill: #007db8;
+        transform-origin: center;
+    }
+
+    @keyframes rotate {
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+<div class="download-progress">
+    <div class="download-progress__modal">
+        <div class="download-progress__icon">
+            <div class="download-progress__icon--pdf">
+                <svg enable-background="new 0 0 30 30"
+                     height="30px"
+                     viewBox="0 0 30 30"
+                     width="30px"
+                     xml:space="preserve"
+                     xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink">
+                     <g>
+                         <path d="M28.595,7.562l-5.438-6.309l-1.078-1.25H9.228c-1.727,0-3.124,1.397-3.124,3.124v3.971H8.04l-0.001-3.21   c0.004-0.971,0.784-1.756,1.752-1.756l10.994-0.01v5.208c0.001,1.939,1.567,3.51,3.507,3.51h3.807L27.91,25.86   c-0.004,0.967-0.784,1.747-1.752,1.754L9.652,27.606c-0.883,0-1.594-0.866-1.6-1.935V24.4H6.114v1.896   c0,1.907,1.277,3.455,2.845,3.455l17.763-0.005c1.726,0,3.124-1.404,3.124-3.126V9.016L28.595,7.562"
+                             fill="#434440" />
+                         <path d="M20.145,25.368H0V6.129h20.145V25.368 M1.934,23.432h16.274V8.065H1.934"
+                             fill="#EA4C3A" />
+                         <path d="M10.314,9.069   c0.305,0.141,0.242,0.328,0.148,1.201c-0.097,0.905-0.414,2.554-1.032,4.173c-0.616,1.622-1.529,3.21-2.325,4.39   c-0.797,1.178-1.478,1.943-1.998,2.386c-0.519,0.441-0.882,0.559-1.115,0.599c-0.233,0.04-0.339,0-0.405-0.117   c-0.063-0.118-0.084-0.315-0.031-0.551c0.053-0.234,0.181-0.51,0.542-0.863c0.36-0.354,0.956-0.785,1.785-1.188   c0.829-0.402,1.891-0.775,2.762-1.031s1.551-0.393,2.146-0.5c0.595-0.108,1.104-0.187,1.604-0.226c0.5-0.04,0.988-0.04,1.467,0   c0.478,0.039,0.945,0.117,1.348,0.216c0.406,0.097,0.745,0.217,1.042,0.402c0.299,0.187,0.552,0.441,0.681,0.726   c0.127,0.286,0.127,0.6,0.021,0.825c-0.105,0.227-0.318,0.364-0.563,0.441c-0.246,0.08-0.522,0.099-0.851,0   c-0.33-0.098-0.712-0.314-1.115-0.599c-0.404-0.284-0.829-0.638-1.381-1.187c-0.553-0.551-1.232-1.298-1.807-2.023   c-0.573-0.727-1.041-1.434-1.358-2.033c-0.319-0.599-0.489-1.09-0.627-1.582c-0.138-0.491-0.244-0.98-0.287-1.422   c-0.043-0.443-0.021-0.837,0.021-1.149c0.042-0.315,0.106-0.55,0.213-0.708c0.106-0.157,0.256-0.235,0.362-0.275   s0.169-0.04,0.234-0.049c0.063-0.009,0.126-0.029,0.222,0c0.094,0.03,0.216,0.104,0.34,0.18"
+                             fill="none"
+                             stroke="#EA4C3A"
+                             stroke-linejoin="round"
+                             stroke-miterlimit="10"
+                             stroke-width="0.75" />
+                     </g>
+                </svg>
+            </div>
+            
+            <div class="download-progress__icon--word">
+                <svg enable-background="new 0 0 30 30"
+                     height="30px"
+                     viewBox="0 0 30 30"
+                     width="30px"
+                     xml:space="preserve"
+                     xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink">
+                     <g>
+                         <path d="M28.692,7.584l-5.459-6.33L22.154,0H9.257C7.526,0,6.125,1.402,6.125,3.134v3.984h1.942L8.066,3.897   c0.002-0.974,0.785-1.762,1.757-1.762l11.03-0.01V7.35c0.001,1.946,1.574,3.522,3.521,3.522h3.818l-0.188,15.074   c-0.002,0.97-0.788,1.752-1.758,1.759L9.685,27.698c-0.886,0-1.6-0.871-1.604-1.942v-1.274H6.135v1.901   c0,1.914,1.281,3.467,2.854,3.467l17.824-0.006c1.73,0,3.135-1.409,3.135-3.135V9.043L28.692,7.584"
+                             fill="#434440" />
+                         <path d="M20.213,25.451H0V6.147h20.213V25.451 M1.942,23.509h16.326V8.09H1.942"
+                             fill="#2372BA" />
+                         <polyline fill="#2372BA"
+                                 points="17.052,11.922 14.098,20.895 11.646,20.895 9.958,15.694 8.188,20.895 5.744,20.895 2.985,11.922    5.498,11.922 7.105,17.721 9.063,11.922 10.974,11.922 12.796,17.721 14.543,11.922 17.052,11.922  " />
+                     </g>
+                 </svg>
+            </div>
+            
+            <div class="download-progress__icon--powerpoint">
+                <svg enable-background="new 0 0 30 30"
+                     height="30px"
+                     viewBox="0 0 30 30"
+                     width="30px"
+                     xml:space="preserve"
+                     xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink">
+                     <g>
+                         <path d="M28.692,7.584l-5.459-6.33L22.154,0H9.257C7.526,0,6.125,1.402,6.125,3.134v3.984h1.942L8.066,3.897   c0.002-0.974,0.785-1.762,1.757-1.762l11.03-0.01V7.35c0.001,1.946,1.574,3.522,3.521,3.522h3.818l-0.188,15.074   c-0.002,0.97-0.788,1.752-1.758,1.759L9.685,27.698c-0.886,0-1.6-0.871-1.604-1.942v-1.274H6.135v1.901   c0,1.914,1.281,3.467,2.854,3.467l17.824-0.006c1.73,0,3.135-1.409,3.135-3.135V9.043L28.692,7.584"
+                             fill="#434440" />
+                         <path d="M20.213,25.451H0V6.147h20.213V25.451 M1.942,23.509h16.326V8.09H1.942"
+                             fill="#D24625" />
+                         <path d="M11.854,15.19c0,0.596-0.117,1.134-0.352,1.612c-0.235,0.479-0.563,0.889-0.982,1.231   c-0.42,0.342-0.915,0.605-1.485,0.791c-0.571,0.186-1.187,0.279-1.851,0.279H6.578v2.683H4.393V11.922h2.792   c0.703,0,1.343,0.088,1.919,0.264c0.576,0.176,1.065,0.425,1.47,0.747c0.405,0.322,0.713,0.713,0.925,1.172   C11.748,14.564,11.854,15.082,11.854,15.19z M9.605,15.19c0-0.518-0.186-0.918-0.557-1.201c-0.371-0.283-0.889-0.425-1.553-0.425   H6.578v3.428h0.938c0.664,0,1.182-0.156,1.553-0.469C9.419,16.21,9.605,15.776,9.605,15.19z"
+                             fill="#D24625" />
+                     </g>
+                 </svg>
+            </div>
+        </div>
+        
+        <div>
+            <p class="download-progress__heading"></p>
+            
+            <div class="download-progress__error">
+                <p>
+                    CV-en kunne ikke eksporteres
+                </p>
+                
+                <p>
+                    Vennligst prøv igjen og kontakt Cinode hvis feilen vedvarer.
+                </p>
+            </div>
+        </div>
+
+        <div class="download-progress__status">
+            <div class="download-progress__status--loading">
+                <svg width="40"
+                     height="40"
+                     viewBox="0 0 24 24"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"
+                        class="download-progress__spinner--bg" />
+                    <path d="M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z"
+                        class="download-progress__spinner--rotate" />
+                </svg>
+            </div>
+            
+            <div class="download-progress__status--done">
+                <svg width="30px" height="30px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Actions" stroke="none" stroke-width="10" fill="none" fill-rule="evenodd">
+                        <g id="icon-todo-completed" fill="#ffffff">
+                            <polygon points="9 16.17 4.83 12 3.41 13.41 9 19 21 7 19.59 5.59"></polygon>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="download-progress__status--error">
+                !
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- END FILE DOWNLOAD HELPERS -->
+
+
+        <script src="https://cdn1.cinodestatic.net/assets/shared/scripts/7e827e47-f7d1-4bd7-9bb8-174d4416379b.js?v=639089229343588016"></script>
+        <script src="https://cdn1.cinodestatic.net/assets/shared/scripts/4410d7cf-3b0a-416b-a9d6-5e7fd158e532.js?v=638188690146289559"></script>
+
+
+
+    <script>
+        window.addEventListener('load', function () {
+            pageFlow.createPrintLayout();
+        });
+    </script>
+
+</html>
