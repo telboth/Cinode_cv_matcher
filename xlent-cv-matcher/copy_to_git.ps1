@@ -69,6 +69,34 @@ function Assert-NoSensitiveFilesInIndex {
     }
 }
 
+function Try-AutoResolve-EnvMergeConflict {
+    $statusLines = (& git status --porcelain) | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
+    if (-not $statusLines) {
+        return $false
+    }
+
+    $conflictLines = $statusLines | Where-Object { $_ -match '^(AA|AU|UA|DD|DU|UD|UU)\s+' }
+    if (-not $conflictLines) {
+        return $false
+    }
+
+    $envConflictLines = $conflictLines | Where-Object { $_ -match '^(AA|AU|UA|DD|DU|UD|UU)\s+(.+[\\/])?\.env$' }
+    $otherConflictLines = @($conflictLines | Where-Object { $_ -notmatch '^(AA|AU|UA|DD|DU|UD|UU)\s+(.+[\\/])?\.env$' })
+    if (-not $envConflictLines -or $otherConflictLines.Count -gt 0) {
+        return $false
+    }
+
+    foreach ($line in $envConflictLines) {
+        $path = $line.Substring(3).Trim()
+        if ([string]::IsNullOrWhiteSpace($path)) { continue }
+        Write-Step "Autoløser .env-konflikt ved å beholde lokal sletting: $path"
+        [void](Invoke-Git -GitArgs @("rm", "--", $path))
+    }
+
+    [void](Invoke-Git -GitArgs @("commit", "--no-edit"))
+    return $true
+}
+
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 Push-Location $scriptDir
 try {
@@ -152,7 +180,15 @@ try {
     $aheadBehind = Get-AheadBehind -LocalRef $currentBranch -RemoteRef $remoteRef
     if ($aheadBehind -and $aheadBehind.Behind -gt 0) {
         Write-Step "Remote er foran med $($aheadBehind.Behind) commit(s). Fletter inn $remoteRef før push."
-        [void](Invoke-Git -GitArgs @("merge", "--no-edit", $remoteRef))
+        $mergeExit = Invoke-Git -GitArgs @("merge", "--no-edit", $remoteRef) -AllowNonZeroExit
+        if ($mergeExit -ne 0) {
+            if (Try-AutoResolve-EnvMergeConflict) {
+                Write-Step "Merge-konflikt i .env ble løst automatisk."
+            }
+            else {
+                throw "Merge mot $remoteRef feilet med konflikter som må løses manuelt."
+            }
+        }
     }
 
     if ([string]::IsNullOrWhiteSpace($TargetBranch)) {
