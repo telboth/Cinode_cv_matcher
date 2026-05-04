@@ -1,7 +1,10 @@
 param(
     [string]$CommitMessage = "",
     [switch]$NoPush,
-    [switch]$IncludeRepoRootFiles
+    [switch]$IncludeRepoRootFiles,
+    [string]$TargetRemote = "origin",
+    [string]$TargetRemoteUrl = "https://github.com/telboth/Cinode_cv_matcher.git",
+    [string]$TargetBranch = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -50,6 +53,18 @@ if ([string]::IsNullOrWhiteSpace($CommitMessage)) {
 Push-Location $repoRootFull
 try {
     Write-Step "Repo: $repoRootFull"
+    Write-Step "Target remote: $TargetRemote ($TargetRemoteUrl)"
+
+    $existingRemoteUrl = (& git remote get-url $TargetRemote 2>$null).Trim()
+    if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($existingRemoteUrl)) {
+        Write-Step "Legger til remote '$TargetRemote'"
+        Invoke-Git -GitArgs @("remote", "add", $TargetRemote, $TargetRemoteUrl)
+    }
+    elseif ($existingRemoteUrl -ne $TargetRemoteUrl) {
+        Write-Step "Oppdaterer remote-url for '$TargetRemote'"
+        Invoke-Git -GitArgs @("remote", "set-url", $TargetRemote, $TargetRemoteUrl)
+    }
+
     if ($IncludeRepoRootFiles) {
         Write-Step "Stager hele repoet"
         Invoke-Git -GitArgs @("add", "-A")
@@ -73,21 +88,19 @@ try {
         exit 0
     }
 
-    $branch = (& git branch --show-current).Trim()
-    if ([string]::IsNullOrWhiteSpace($branch)) {
-        Write-Warning "Kunne ikke finne aktiv branch. Hopper over push."
-        exit 0
+    $currentBranch = (& git branch --show-current).Trim()
+    if ([string]::IsNullOrWhiteSpace($currentBranch)) {
+        throw "Kunne ikke finne aktiv branch for push."
     }
 
-    $remotes = & git remote
-    if ($LASTEXITCODE -ne 0 -or -not $remotes) {
-        Write-Warning "Ingen git remote konfigurert. Commit er laget lokalt."
-        exit 0
+    if ([string]::IsNullOrWhiteSpace($TargetBranch)) {
+        Write-Step "Pusher til $TargetRemote/$currentBranch"
+        Invoke-Git -GitArgs @("push", "--set-upstream", $TargetRemote, $currentBranch)
     }
-
-    $remote = ($remotes | Select-Object -First 1).Trim()
-    Write-Step "Pusher til $remote/$branch"
-    Invoke-Git -GitArgs @("push", "--set-upstream", $remote, $branch)
+    else {
+        Write-Step "Pusher HEAD til $TargetRemote/$TargetBranch"
+        Invoke-Git -GitArgs @("push", "--set-upstream", $TargetRemote, "HEAD:$TargetBranch")
+    }
     Write-Step "Ferdig."
 }
 finally {

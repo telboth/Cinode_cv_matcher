@@ -98,7 +98,11 @@ Valgfrie flagg:
 .\copy_to_git.ps1 -NoPush
 .\copy_to_git.ps1 -CommitMessage "Oppdatering CV matcher"
 .\copy_to_git.ps1 -IncludeRepoRootFiles
+.\copy_to_git.ps1 -TargetBranch main
 ```
+
+Standard remote i scriptet er:
+`origin -> https://github.com/telboth/Cinode_cv_matcher.git`
 
 ## MVP-endepunkter
 
