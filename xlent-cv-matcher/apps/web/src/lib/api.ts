@@ -1,4 +1,5 @@
-const API_BASE = "http://127.0.0.1:8000/api/v1";
+const RAW_API_BASE = (import.meta.env.VITE_API_BASE as string | undefined)?.trim();
+export const API_BASE = RAW_API_BASE && RAW_API_BASE.length > 0 ? RAW_API_BASE : "/api/v1";
 
 export type Employee = { id: string; full_name: string; email: string };
 export type Opportunity = { id: string; title: string; source_text: string };

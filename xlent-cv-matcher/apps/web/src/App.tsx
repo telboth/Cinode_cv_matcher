@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 import {
+  API_BASE,
   api,
   type CompanySlug,
   type CinodeConsultant,
@@ -383,6 +384,14 @@ export function App() {
     () => buildPublishPresentationText(suggestions, editing),
     [suggestions, editing]
   );
+  const selectedCredential = useMemo(
+    () => cinodeCredentials.find((row) => row.id === selectedCredentialId) || null,
+    [cinodeCredentials, selectedCredentialId]
+  );
+  const lastAutomationOk = useMemo(() => {
+    const okValue = (browserPublishResponse as { ok?: unknown } | null)?.ok;
+    return typeof okValue === "boolean" ? okValue : null;
+  }, [browserPublishResponse]);
   const openaiApiKeyOverrideValue = useMemo(() => {
     const value = openaiApiKeyOverride.trim();
     return value ? value : undefined;
@@ -863,7 +872,7 @@ export function App() {
         <details className="settings-panel" open={settingsExpanded} onToggle={(e) => setSettingsExpanded((e.target as HTMLDetailsElement).open)}>
           <summary>Innstillinger</summary>
           <p>
-            API-base: <code>http://127.0.0.1:8000/api/v1</code>
+            API-base: <code>{API_BASE}</code>
           </p>
           <p>
             <strong>Forslagsmotor:</strong>{" "}
@@ -976,6 +985,42 @@ export function App() {
           <p className="muted">
             <strong>Konsulentstatus:</strong> {consultantFetchStatus}
           </p>
+          <details>
+            <summary>Driftsstatus</summary>
+            <p className="muted">
+              <strong>Forslagsmotor:</strong>{" "}
+              {testModeHeuristicOnly ? "Heuristikk (testmodus)" : suggestionMode === "llm" ? "LLM (OpenAI)" : "Heuristikk"}{" "}
+              <span className="muted">({suggestionModeReason})</span>
+            </p>
+            <p className="muted">
+              <strong>Cinode credential:</strong>{" "}
+              {selectedCredential ? (
+                <>
+                  <code>{selectedCredential.label}</code>
+                  {selectedCredential.is_default ? " (standard)" : ""}
+                </>
+              ) : (
+                "Ikke valgt"
+              )}
+            </p>
+            <p className="muted">
+              <strong>Cinode token override aktiv:</strong> {cinodeTokenOverrideValue ? "Ja" : "Nei"}
+            </p>
+            <p className="muted">
+              <strong>Credential test:</strong>{" "}
+              {selectedCredential?.last_test_status
+                ? `${selectedCredential.last_test_status}${selectedCredential.last_test_message ? ` - ${selectedCredential.last_test_message}` : ""}`
+                : "Ikke testet"}
+            </p>
+            <p className="muted">
+              <strong>Konsulenter lastet:</strong> {consultants.length}
+              {consultantsLoading ? " (laster...)" : ""}
+            </p>
+            <p className="muted">
+              <strong>Siste automasjon:</strong>{" "}
+              {lastAutomationOk === null ? "Ikke kjørt" : lastAutomationOk ? "OK" : "Feilet"}
+            </p>
+          </details>
         </details>
 
         <div className="field-row field-row-three">

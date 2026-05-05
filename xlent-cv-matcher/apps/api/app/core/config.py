@@ -1,5 +1,6 @@
 from functools import lru_cache
 from pathlib import Path
+import os
 
 from pydantic import BaseModel
 from dotenv import load_dotenv
@@ -33,11 +34,15 @@ class Settings(BaseModel):
     cinode_ui_headless: bool = True
     cinode_ui_timeout_ms: int = 120000
     cinode_ui_strict_deterministic_default: bool = True
+    cors_allow_origins: list[str] = [
+        "http://127.0.0.1:5173",
+        "http://localhost:5173",
+    ]
+    web_dist_dir: str | None = None
 
 
 @lru_cache
 def get_settings() -> Settings:
-    import os
     env_path = Path(__file__).resolve().parents[4] / ".env"
     load_dotenv(env_path, override=False)
 
@@ -55,6 +60,11 @@ def get_settings() -> Settings:
     configured_model = os.getenv("OPENAI_MODEL", "gpt-4.1-mini")
     if configured_model not in seen_models:
         merged_allowed_models.insert(0, configured_model)
+
+    raw_cors = os.getenv("CORS_ALLOW_ORIGINS", "").strip()
+    cors_allow_origins = [item.strip() for item in raw_cors.split(",") if item.strip()] if raw_cors else list(
+        Settings.model_fields["cors_allow_origins"].default
+    )
 
     return Settings(
         openai_api_key=os.getenv("OPENAI_API_KEY"),
@@ -76,4 +86,6 @@ def get_settings() -> Settings:
             "CINODE_UI_STRICT_DETERMINISTIC_DEFAULT", "true"
         ).lower()
         == "true",
+        cors_allow_origins=cors_allow_origins,
+        web_dist_dir=os.getenv("WEB_DIST_DIR"),
     )

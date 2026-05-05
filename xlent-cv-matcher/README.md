@@ -39,6 +39,10 @@ npm run dev
 
 Frontend: `http://127.0.0.1:5173`
 
+API-base i web:
+- default: `/api/v1` (via Vite proxy lokalt eller samme host i produksjon)
+- kan overstyres med `VITE_API_BASE` ved behov
+
 ## Start/stop scripts (Windows PowerShell)
 
 Fra prosjektroten:
@@ -83,6 +87,15 @@ Skriptet gjør følgende:
 - installerer API-avhengigheter og Playwright Chromium
 - installerer web-avhengigheter
 - kjører `npm run build` (kan hoppes over med `-SkipBuildCheck`)
+
+## Steg 1 - Intern drift (Azure Container Apps)
+
+Det finnes et enkelt deploy-oppsett i:
+- `Dockerfile` (bygger web + API i én container)
+- `deploy/azure/deploy-step1-containerapp.ps1`
+- `deploy/azure/README.md`
+
+Målbildet for steg 1 er én intern URL (f.eks. `cvmatcher.int.xlent.no`) med autoskalering til 0 når løsningen ikke er i bruk.
 
 ## Kopier siste versjon til Git
 
