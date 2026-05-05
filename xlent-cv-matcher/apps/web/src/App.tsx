@@ -13,14 +13,6 @@ import {
   type Suggestion,
 } from "./lib/api";
 
-const DEMO_CINODE = {
-  name: "Ola Nordmann",
-  title: "Senior Konsulent",
-  location: "Oslo",
-  summary: "Senior konsulent med fokus på smidige leveranser, sky og teknisk ledelse.",
-  skills: ["Azure", "Prosjektledelse", "Python", "Integrasjoner"],
-};
-
 const DEFAULT_SUGGESTION_PROMPT = `Du er en senior tilbudsrådgiver som tilpasser CV-tekst til konsulentoppdrag.
 
 Mål:
@@ -94,8 +86,7 @@ function extractSkills(cv: CinodeConsultantCv | null): string[] {
   return Array.from(new Set(skills)).slice(0, 80);
 }
 
-function buildCinodePayloadFromCv(cv: CinodeConsultantCv | null): Record<string, unknown> {
-  if (!cv) return DEMO_CINODE;
+function buildCinodePayloadFromCv(cv: CinodeConsultantCv): Record<string, unknown> {
   const summary = extractSummary(cv);
   return {
     name: cv.full_name,
@@ -265,8 +256,6 @@ export function App() {
   const TESTMODE_STORAGE_KEY = "xlent_testmode_heuristic_only";
   const OPENAI_API_KEY_OVERRIDE_STORAGE_KEY = "xlent_openai_api_key_override";
   const CINODE_TOKEN_OVERRIDE_STORAGE_KEY = "xlent_cinode_token_override";
-  const [name, setName] = useState("Thomas Elboth");
-  const [email, setEmail] = useState("thomas.elboth@xlent.no");
   const [jobTitle, setJobTitle] = useState("Senior Konsulent - Integrasjon");
   const [jobText, setJobText] = useState(
     "- Må ha erfaring med Claude-code\n- Bør ha erfaring med Codex\n- Bør ha minst 10 års programmeringserfaring"
@@ -275,9 +264,6 @@ export function App() {
   const [opportunityFileWarnings, setOpportunityFileWarnings] = useState<string[]>([]);
   const [uploadingOpportunityFile, setUploadingOpportunityFile] = useState(false);
 
-  const [employeeId, setEmployeeId] = useState("");
-  const [snapshotId, setSnapshotId] = useState("");
-  const [opportunityId, setOpportunityId] = useState("");
   const [variantId, setVariantId] = useState("");
 
   const [requirements, setRequirements] = useState<Requirement[]>([]);
@@ -310,6 +296,8 @@ export function App() {
   const [enrichmentSummary, setEnrichmentSummary] = useState<string[]>([]);
   const [consultantsLoading, setConsultantsLoading] = useState(false);
   const [consultantFetchStatus, setConsultantFetchStatus] = useState("Ikke lastet");
+  const [cinodeTokenBootstrapLoading, setCinodeTokenBootstrapLoading] = useState(false);
+  const [cinodeTokenBootstrapStatus, setCinodeTokenBootstrapStatus] = useState("");
   const [publicStatus, setPublicStatus] = useState<CinodePublicStatus | null>(null);
   const [checkingPublicStatus, setCheckingPublicStatus] = useState(false);
   const [selectedResumeId, setSelectedResumeId] = useState<string>("");
@@ -444,14 +432,33 @@ export function App() {
   };
 
   const refreshCinodeCredentials = async () => {
-    const rows = await api.listCinodeCredentials();
-    setCinodeCredentials(rows);
+    try {
+      const rows = await api.listCinodeCredentials();
+      setCinodeCredentials(rows);
 
-    const defaultCredential = rows.find((row) => row.is_default);
-    if (defaultCredential) {
-      setSelectedCredentialId(defaultCredential.id);
-    } else if (rows.length > 0 && !selectedCredentialId) {
-      setSelectedCredentialId(rows[0].id);
+      if (rows.length === 0) {
+        setSelectedCredentialId("");
+        setConsultantFetchStatus("Ingen Cinode-tilganger funnet");
+        return;
+      }
+
+      // Keep existing selection when still valid.
+      if (selectedCredentialId && rows.some((row) => row.id === selectedCredentialId)) {
+        return;
+      }
+
+      const defaultCredential = rows.find((row) => row.is_default);
+      if (defaultCredential) {
+        setSelectedCredentialId(defaultCredential.id);
+      } else {
+        setSelectedCredentialId(rows[0].id);
+      }
+    } catch (error) {
+      setCinodeCredentials([]);
+      setSelectedCredentialId("");
+      const msg = normalizeErrorMessage(error);
+      setConsultantFetchStatus(`Feil ved lasting av Cinode-tilgang: ${msg}`);
+      setStatus(`Feil: ${msg}`);
     }
   };
 
@@ -496,28 +503,81 @@ export function App() {
     }
   };
 
+  const bootstrapCinodeTokenFromBrowser = async () => {
+    try {
+      setCinodeTokenBootstrapLoading(true);
+      setCinodeTokenBootstrapStatus("Oppretter Cinode API-token via nettleser...");
+      setStatus("Starter Cinode token-bootstrap...");
+
+      const result = await api.bootstrapCinodeTokenViaBrowser({
+        company_slug: selectedCompanySlug,
+        api_account_name: "Cinode_key",
+        credential_label: "Cinode (browser bootstrap)",
+        set_default: true,
+        timeout_ms: 180000,
+      });
+
+      await refreshCinodeCredentials();
+      if (result.credential_id) {
+        setSelectedCredentialId(result.credential_id);
+      }
+
+      // Fill the UI token field with the newly created token.
+      const bootstrapToken = (result.authorization_value || "").trim();
+      if (bootstrapToken) {
+        setCinodeTokenOverride(bootstrapToken);
+        localStorage.setItem(CINODE_TOKEN_OVERRIDE_STORAGE_KEY, bootstrapToken);
+      } else {
+        setCinodeTokenOverride("");
+        localStorage.setItem(CINODE_TOKEN_OVERRIDE_STORAGE_KEY, "");
+      }
+
+      if (result.ok) {
+        setCinodeTokenBootstrapStatus(`OK: ${result.detail}`);
+        setStatus("Cinode-token opprettet og lagret i tilgangslisten.");
+      } else {
+        setCinodeTokenBootstrapStatus(`Feil: ${result.detail}`);
+        setStatus(`Feil: ${result.detail}`);
+      }
+    } catch (error) {
+      const msg = normalizeErrorMessage(error);
+      setCinodeTokenBootstrapStatus(`Feil: ${msg}`);
+      setErrorStatus(error);
+    } finally {
+      setCinodeTokenBootstrapLoading(false);
+    }
+  };
+
   useEffect(() => {
     const loadModels = async () => {
-      try {
-        const response = await api.getOpenAIModels();
-        const models = response.allowed_models.length > 0 ? response.allowed_models : ["gpt-4.1-mini"];
-        setAllowedModels(models);
-        setSuggestionMode(response.suggestion_mode || "heuristic");
-        setSuggestionModeReason(response.suggestion_mode_reason || "");
+      const maxAttempts = 3;
+      for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+        try {
+          const response = await api.getOpenAIModels();
+          const models = response.allowed_models.length > 0 ? response.allowed_models : ["gpt-4.1-mini"];
+          setAllowedModels(models);
+          setSuggestionMode(response.suggestion_mode || "heuristic");
+          setSuggestionModeReason(response.suggestion_mode_reason || "");
 
-        const fromStorage = localStorage.getItem(MODEL_STORAGE_KEY);
-        if (fromStorage && models.includes(fromStorage)) {
-          setSelectedModel(fromStorage);
+          const fromStorage = localStorage.getItem(MODEL_STORAGE_KEY);
+          if (fromStorage && models.includes(fromStorage)) {
+            setSelectedModel(fromStorage);
+            return;
+          }
+
+          const fallback = models.includes(response.default_model) ? response.default_model : models[0];
+          setSelectedModel(fallback);
+          localStorage.setItem(MODEL_STORAGE_KEY, fallback);
           return;
+        } catch {
+          if (attempt < maxAttempts) {
+            await new Promise((resolve) => window.setTimeout(resolve, 1000));
+            continue;
+          }
+          // Keep fallback model in local state if config endpoint fails.
+          setSuggestionMode("heuristic");
+          setSuggestionModeReason("Kunne ikke laste config fra API");
         }
-
-        const fallback = models.includes(response.default_model) ? response.default_model : models[0];
-        setSelectedModel(fallback);
-        localStorage.setItem(MODEL_STORAGE_KEY, fallback);
-      } catch {
-        // Keep fallback model in local state if config endpoint fails.
-        setSuggestionMode("heuristic");
-        setSuggestionModeReason("Kunne ikke laste config fra API");
       }
     };
 
@@ -567,21 +627,21 @@ export function App() {
         return;
       }
 
-      if (!name || !email) {
-        setStatus("Feil: velg en konsulent med navn og e-post først");
+      const consultantName = String(consultantCv.full_name || "").trim();
+      const consultantEmail = String(consultantCv.email || "").trim();
+      if (!consultantName || !consultantEmail) {
+        setStatus("Feil: valgt konsulent mangler navn eller e-post");
         return;
       }
-
-      const enrichmentForRun = null;
 
       setStatus("Oppretter ansatt...");
       let employee;
       try {
-        employee = await api.createEmployee(name, email);
+        employee = await api.createEmployee(consultantName, consultantEmail);
       } catch (error) {
         const message = error instanceof Error ? error.message : "";
         if (message.includes("already exists")) {
-          const matches = await api.findEmployeeByEmail(email);
+          const matches = await api.findEmployeeByEmail(consultantEmail);
           if (matches.length === 0) {
             throw error;
           }
@@ -591,16 +651,13 @@ export function App() {
           throw error;
         }
       }
-      setEmployeeId(employee.id);
 
       setStatus("Importer profil (Cinode-datauttrekk)...");
       const payload = buildCinodePayloadFromCv(consultantCv);
       const snapshot = await api.importCinode(employee.id, payload);
-      setSnapshotId(snapshot.id);
 
       setStatus("Oppretter utlysning...");
       const opportunity = await api.createOpportunity(jobTitle, jobText);
-      setOpportunityId(opportunity.id);
 
       setStatus("Analyserer utlysning...");
       await api.analyzeOpportunityWithModel(opportunity.id, selectedModel, openaiApiKeyOverrideValue);
@@ -608,7 +665,7 @@ export function App() {
       setRequirements(reqs);
 
       setStatus("Oppretter CV-variant...");
-      const variantTitle = `${name} - ${jobTitle}`.trim();
+      const variantTitle = `${consultantName} - ${jobTitle}`.trim();
       const variant = await api.createVariant(employee.id, opportunity.id, snapshot.id, variantTitle);
       setVariantId(variant.id);
 
@@ -785,8 +842,6 @@ export function App() {
       setConsultantCv(result);
       setConsultantEnrichment(null);
       setEnrichmentSummary([]);
-      setName(result.full_name || "");
-      setEmail(result.email || "");
       setSelectedResumeId(result.selected_resume_id ? String(result.selected_resume_id) : "");
       setCheckingPublicStatus(true);
       const statusResult = await api.getConsultantPublicStatus(
@@ -966,6 +1021,19 @@ export function App() {
               }}
             />
           </label>
+          <div className="actions">
+            <button
+              className="ghost"
+              type="button"
+              onClick={() => void bootstrapCinodeTokenFromBrowser()}
+              disabled={cinodeTokenBootstrapLoading}
+            >
+              {cinodeTokenBootstrapLoading
+                ? "Oppretter Cinode-token..."
+                : "Opprett Cinode-token via nettleser"}
+            </button>
+          </div>
+          {cinodeTokenBootstrapStatus && <p className="muted">{cinodeTokenBootstrapStatus}</p>}
           {cinodeCredentials.length > 1 && (
             <label>
               Aktiv Cinode-tilgang
@@ -1489,20 +1557,10 @@ export function App() {
           {automatingBrowserPublish && <span className="status-spinner" aria-label="Automasjon kjører" />}
         </div>
         {publishUiMessage && <p className="muted">{publishUiMessage}</p>}
-        {Boolean((browserPublishResponse as { ok?: boolean } | null)?.ok) && !automatingBrowserPublish && (
-          <p className="muted">
-            Programmet er kjørt, og ny CV eksisterer nå i Cinode.
-          </p>
-        )}
         {lastPublished && (
           <div className="muted">
             <p>
               <strong>Sist publisert variant:</strong> <code>{lastPublished.variantId}</code>
-            </p>
-            <p>
-              <strong>Publisert tekst (utdrag):</strong>{" "}
-              {(lastPublished.summaryText || "(tom tekst)").slice(0, 220)}
-              {lastPublished.summaryText.length > 220 ? "..." : ""}
             </p>
             {lastPublished.createdResumeUrl && (
               <p>
@@ -1531,10 +1589,10 @@ export function App() {
         )}
 
         {browserPublishResponse && (
-          <>
-            <h3>Automasjonsrespons</h3>
+          <details>
+            <summary>Automasjonsrespons</summary>
             <pre>{JSON.stringify(browserPublishResponse, null, 2)}</pre>
-          </>
+          </details>
         )}
 
       </section>

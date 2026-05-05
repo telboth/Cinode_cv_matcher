@@ -3,7 +3,7 @@ from pathlib import Path
 import os
 
 from pydantic import BaseModel
-from dotenv import load_dotenv
+from dotenv import dotenv_values
 
 
 class Settings(BaseModel):
@@ -43,10 +43,35 @@ class Settings(BaseModel):
 
 @lru_cache
 def get_settings() -> Settings:
-    env_path = Path(__file__).resolve().parents[4] / ".env"
-    load_dotenv(env_path, override=False)
+    root_dir = Path(__file__).resolve().parents[4]
+    env_path = root_dir / ".env"
+    secrets_env_override = os.getenv("SECRETS_ENV_PATH", "").strip()
+    secrets_env_path = Path(secrets_env_override) if secrets_env_override else (root_dir / "secrets.env")
 
-    raw_allowed_models = os.getenv("OPENAI_ALLOWED_MODELS", "").strip()
+    file_env = dotenv_values(env_path) if env_path.exists() else {}
+    file_secrets = dotenv_values(secrets_env_path) if secrets_env_path.exists() else {}
+
+    def _env_get(name: str, default: str | None = None) -> str | None:
+        # Priority:
+        # 1) Process environment
+        # 2) secrets.env
+        # 3) .env
+        if name in os.environ:
+            value = os.getenv(name)
+            if value is not None and str(value).strip() != "":
+                return value
+
+        secret_value = file_secrets.get(name)
+        if secret_value is not None and str(secret_value).strip() != "":
+            return str(secret_value)
+
+        env_value = file_env.get(name)
+        if env_value is not None and str(env_value).strip() != "":
+            return str(env_value)
+
+        return default
+
+    raw_allowed_models = (_env_get("OPENAI_ALLOWED_MODELS", "") or "").strip()
     env_allowed_models = [item.strip() for item in raw_allowed_models.split(",") if item.strip()] if raw_allowed_models else []
     default_allowed_models = list(Settings.model_fields["openai_allowed_models"].default)
     merged_allowed_models: list[str] = []
@@ -57,35 +82,35 @@ def get_settings() -> Settings:
         seen_models.add(model)
         merged_allowed_models.append(model)
 
-    configured_model = os.getenv("OPENAI_MODEL", "gpt-4.1-mini")
+    configured_model = _env_get("OPENAI_MODEL", "gpt-4.1-mini") or "gpt-4.1-mini"
     if configured_model not in seen_models:
         merged_allowed_models.insert(0, configured_model)
 
-    raw_cors = os.getenv("CORS_ALLOW_ORIGINS", "").strip()
+    raw_cors = (_env_get("CORS_ALLOW_ORIGINS", "") or "").strip()
     cors_allow_origins = [item.strip() for item in raw_cors.split(",") if item.strip()] if raw_cors else list(
         Settings.model_fields["cors_allow_origins"].default
     )
 
     return Settings(
-        openai_api_key=os.getenv("OPENAI_API_KEY"),
-        use_openai_analysis=os.getenv("USE_OPENAI_ANALYSIS", "false").lower() == "true",
+        openai_api_key=_env_get("OPENAI_API_KEY"),
+        use_openai_analysis=(_env_get("USE_OPENAI_ANALYSIS", "false") or "false").lower() == "true",
         openai_model=configured_model,
         openai_allowed_models=merged_allowed_models,
-        cinode_base_url=os.getenv("CINODE_BASE_URL"),
-        cinode_api_token=os.getenv("CINODE_API_TOKEN"),
-        cinode_publish_path=os.getenv(
+        cinode_base_url=_env_get("CINODE_BASE_URL"),
+        cinode_api_token=_env_get("CINODE_API_TOKEN"),
+        cinode_publish_path=_env_get(
             "CINODE_PUBLISH_PATH",
             "/v0.1/companies/{companyId}/users/{companyUserId}/profile/import",
         ),
-        enable_cinode_publish=os.getenv("ENABLE_CINODE_PUBLISH", "false").lower() == "true",
-        cinode_ui_automation_enabled=os.getenv("CINODE_UI_AUTOMATION_ENABLED", "false").lower() == "true",
-        cinode_app_url=os.getenv("CINODE_APP_URL", "https://app.cinode.com"),
-        cinode_ui_headless=os.getenv("CINODE_UI_HEADLESS", "true").lower() == "true",
-        cinode_ui_timeout_ms=max(15000, int(os.getenv("CINODE_UI_TIMEOUT_MS", "120000"))),
-        cinode_ui_strict_deterministic_default=os.getenv(
+        enable_cinode_publish=(_env_get("ENABLE_CINODE_PUBLISH", "false") or "false").lower() == "true",
+        cinode_ui_automation_enabled=(_env_get("CINODE_UI_AUTOMATION_ENABLED", "false") or "false").lower() == "true",
+        cinode_app_url=_env_get("CINODE_APP_URL", "https://app.cinode.com") or "https://app.cinode.com",
+        cinode_ui_headless=(_env_get("CINODE_UI_HEADLESS", "true") or "true").lower() == "true",
+        cinode_ui_timeout_ms=max(15000, int(_env_get("CINODE_UI_TIMEOUT_MS", "120000") or "120000")),
+        cinode_ui_strict_deterministic_default=(_env_get(
             "CINODE_UI_STRICT_DETERMINISTIC_DEFAULT", "true"
-        ).lower()
+        ) or "true").lower()
         == "true",
         cors_allow_origins=cors_allow_origins,
-        web_dist_dir=os.getenv("WEB_DIST_DIR"),
+        web_dist_dir=_env_get("WEB_DIST_DIR"),
     )

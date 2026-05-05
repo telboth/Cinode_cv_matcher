@@ -19,6 +19,8 @@ from app.schemas.cinode_credential import (
     CinodeBrowserLoginResponse,
     CinodeBrowserPreflightRequest,
     CinodeBrowserPreflightResponse,
+    CinodeBrowserTokenBootstrapRequest,
+    CinodeBrowserTokenBootstrapResponse,
     CinodeConsultant,
     CinodeConsultantCvRequest,
     CinodeConsultantCvResponse,
@@ -41,6 +43,7 @@ from app.services.cinode_client import build_docx_from_payload
 from app.services.cinode_cv_docx import build_cinode_cv_docx
 from app.services.cinode_browser_export import CinodeBrowserExportError, render_cv_page_to_pdf
 from app.services.cinode_payload_mapper import build_cinode_payload
+from app.services.cinode_token_bootstrap import CinodeTokenBootstrapError, bootstrap_cinode_token_via_script
 from app.services.cinode_directory import (
     CinodeApiError,
     check_public_resume_url,
@@ -262,6 +265,7 @@ def _ensure_env_credential(db: Session) -> None:
     env_label = "Cinode (.env)"
 
     row = db.query(CinodeCredential).filter(CinodeCredential.label == env_label).first()
+    any_default = db.query(CinodeCredential).filter(CinodeCredential.is_default == True).first() is not None  # noqa: E712
     if row:
         changed = False
         if row.base_url != base_url:
@@ -270,20 +274,20 @@ def _ensure_env_credential(db: Session) -> None:
         if row.auth_value != normalized_auth:
             row.auth_value = normalized_auth
             changed = True
-        if not row.is_default:
-            db.query(CinodeCredential).update({CinodeCredential.is_default: False})
+        # Do not force .env-credential as default if user has already selected another default.
+        if not row.is_default and not any_default:
             row.is_default = True
             changed = True
         if changed:
             db.commit()
         return
 
-    db.query(CinodeCredential).update({CinodeCredential.is_default: False})
+    make_default = not any_default
     row = CinodeCredential(
         label=env_label,
         base_url=base_url,
         auth_value=normalized_auth,
-        is_default=True,
+        is_default=make_default,
     )
     db.add(row)
     db.commit()
@@ -313,6 +317,68 @@ def create_credential(payload: CinodeCredentialCreate, db: Session = Depends(get
     db.commit()
     db.refresh(row)
     return _to_read(row)
+
+
+@router.post("/credentials/bootstrap-browser-token", response_model=CinodeBrowserTokenBootstrapResponse)
+def bootstrap_browser_token(
+    payload: CinodeBrowserTokenBootstrapRequest,
+    db: Session = Depends(get_db),
+) -> CinodeBrowserTokenBootstrapResponse:
+    settings = get_settings()
+    base_url = (settings.cinode_base_url or "https://api.cinode.com").strip() or "https://api.cinode.com"
+
+    try:
+        result = bootstrap_cinode_token_via_script(
+            company_slug=payload.company_slug,
+            api_account_name=payload.api_account_name,
+            timeout_ms=payload.timeout_ms,
+        )
+    except CinodeTokenBootstrapError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+    raw_token = str(result.get("token_value") or "").strip()
+    if not raw_token:
+        raise HTTPException(status_code=400, detail="Bootstrap returnerte tom token.")
+    auth_value = normalize_auth_value(raw_token)
+
+    label = str(payload.credential_label or "").strip() or "Cinode (browser bootstrap)"
+    row = db.query(CinodeCredential).filter(CinodeCredential.label == label).first()
+    if payload.set_default:
+        db.query(CinodeCredential).update({CinodeCredential.is_default: False})
+
+    if row:
+        row.base_url = base_url
+        row.auth_value = auth_value
+        row.is_default = payload.set_default
+    else:
+        row = CinodeCredential(
+            label=label,
+            base_url=base_url,
+            auth_value=auth_value,
+            is_default=payload.set_default,
+        )
+        db.add(row)
+
+    ok, status_code, message, _whoami = test_cinode_credential(base_url, auth_value)
+    row.last_test_status = "ok" if ok else "failed"
+    row.last_test_message = f"{message} (status={status_code})"[:1024]
+    row.last_test_at = datetime.utcnow()
+    db.commit()
+    db.refresh(row)
+
+    detail = result.get("detail") if isinstance(result.get("detail"), str) else "Token opprettet."
+    if not ok:
+        detail = f"{detail} Credential-test feilet: {message}"
+
+    return CinodeBrowserTokenBootstrapResponse(
+        ok=ok,
+        detail=detail,
+        credential_id=row.id,
+        credential_label=row.label,
+        authorization_masked=mask_auth_value(row.auth_value),
+        authorization_value=row.auth_value,
+        debug_trace=result.get("debug_trace") if isinstance(result.get("debug_trace"), list) else [],
+    )
 
 
 @router.delete("/credentials/{credential_id}", status_code=204)

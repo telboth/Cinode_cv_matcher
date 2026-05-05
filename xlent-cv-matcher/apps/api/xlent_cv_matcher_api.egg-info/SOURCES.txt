@@ -43,6 +43,7 @@ app/services/cinode_client.py
 app/services/cinode_cv_docx.py
 app/services/cinode_directory.py
 app/services/cinode_payload_mapper.py
+app/services/cinode_token_bootstrap.py
 app/services/consultant_enrichment.py
 app/services/document_text_extractor.py
 app/services/docx_parser.py

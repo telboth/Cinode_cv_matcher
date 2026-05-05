@@ -106,6 +106,15 @@ export type CinodeBrowserPreflightResult = {
   current_url?: string | null;
   debug_trace?: string[];
 };
+export type CinodeBrowserTokenBootstrapResult = {
+  ok: boolean;
+  detail: string;
+  credential_id?: string | null;
+  credential_label?: string | null;
+  authorization_masked?: string | null;
+  authorization_value?: string | null;
+  debug_trace?: string[];
+};
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`${API_BASE}${path}`, {
@@ -406,4 +415,15 @@ export const api = {
         body: JSON.stringify(payload),
       }
     ),
+  bootstrapCinodeTokenViaBrowser: (payload: {
+    company_slug?: CompanySlug;
+    api_account_name?: string;
+    credential_label?: string;
+    set_default?: boolean;
+    timeout_ms?: number;
+  }) =>
+    request<CinodeBrowserTokenBootstrapResult>("/cinode/credentials/bootstrap-browser-token", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
 };

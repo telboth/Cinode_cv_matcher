@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -78,8 +78,6 @@ if web_dist_dir:
         normalized = full_path.lstrip("/")
         api_prefix = settings.api_prefix.lstrip("/")
         if normalized.startswith(api_prefix) or normalized in {"docs", "redoc", "openapi.json", "health"}:
-            from fastapi import HTTPException
-
             raise HTTPException(status_code=404, detail="Not Found")
         file_candidate = web_dist_dir / normalized
         if file_candidate.exists() and file_candidate.is_file():

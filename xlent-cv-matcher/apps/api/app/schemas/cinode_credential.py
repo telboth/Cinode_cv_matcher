@@ -153,3 +153,21 @@ class CinodeBrowserLoginResponse(BaseModel):
     detail: str
     current_url: str | None = None
     debug_trace: list[str] = Field(default_factory=list)
+
+
+class CinodeBrowserTokenBootstrapRequest(BaseModel):
+    company_slug: Literal["xlent", "differ", "folden"] = "xlent"
+    api_account_name: str = "Cinode_key"
+    credential_label: str = "Cinode (browser bootstrap)"
+    set_default: bool = True
+    timeout_ms: int = 180000
+
+
+class CinodeBrowserTokenBootstrapResponse(BaseModel):
+    ok: bool
+    detail: str
+    credential_id: str | None = None
+    credential_label: str | None = None
+    authorization_masked: str | None = None
+    authorization_value: str | None = None
+    debug_trace: list[str] = Field(default_factory=list)
